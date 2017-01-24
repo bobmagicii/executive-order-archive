@@ -1,0 +1,5 @@
+{
+	"require": {
+		"netherphp/world": "^2.2"
+	}
+}
