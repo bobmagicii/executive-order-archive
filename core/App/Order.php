@@ -94,7 +94,7 @@ extends Nether\Object {
 	GetURLs():
 	Nether\Object\Datastore {
 
-		return $URLs;
+		return $this->URLs;
 	}
 
 	////////////////////////////////////////////////////////////////
