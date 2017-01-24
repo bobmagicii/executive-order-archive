@@ -33,6 +33,12 @@ Nether\Option::Set('nether-database-connections',[
 ]);
 ```
 
+Setup the database.
+
+```
+$ phinx migrate
+```
+
 Start up the test server.
 
 ```
