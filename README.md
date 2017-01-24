@@ -10,5 +10,5 @@ $ composer install
 ```
 
 ```
- $ php -S localhost:80 -t www
- ```
+$ php -S localhost:80 -t www
+```
