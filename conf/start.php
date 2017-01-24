@@ -23,7 +23,5 @@ $DatabaseConfig = sprintf(
 if(!file_exists($DatabaseConfig))
 throw new Exception('No Database Configuration Found.');
 
-require(sprintf(
-	'%s/conf/database.conf.php',
-	ProjectRoot
-));
+require($DatabaseConfig);
+unset($DatabaseConfig);
