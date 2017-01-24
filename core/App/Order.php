@@ -10,6 +10,7 @@ extends Nether\Object {
 	static public
 	$PropertyMap = [
 		'eo_id'             => 'ID:int',        // our internal id.
+		'eo_president'      => 'President',     // who signed it.
 		'eo_ordernum'       => 'OrderNumber',   // apparent format: YYYY-Numeral
 		'eo_date_signed'    => 'DateSigned',    // day president signed it.
 		'eo_date_published' => 'DatePublished', // day it was made public :z could be interesting.
