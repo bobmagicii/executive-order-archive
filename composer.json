@@ -2,5 +2,13 @@
 	"require": {
 		"netherphp/world": "^2.2",
 		"robmorgan/phinx": "^0.6.6"
+	},
+	"autoload": {
+		"psr-0": {
+			"App\\": "core\/"
+		},
+		"psr-4": {
+			"Routes\\": "routes\/"
+		}
 	}
 }
