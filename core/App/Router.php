@@ -11,7 +11,8 @@ extends Nether\Avenue\Router {
 	__construct($Opt=NULL) {
 		parent::__construct($Opt);
 
-		// todo.
+		$this
+		->AddRoute('{@}//index','Routes\Home::Index');
 
 		return;
 	}
