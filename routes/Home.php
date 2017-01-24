@@ -15,4 +15,12 @@ class Home {
 		return;
 	}
 
+	public function
+	About():
+	Void {
+
+		echo "if you're here, you're all about the bass.";
+		return;
+	}
+
 }

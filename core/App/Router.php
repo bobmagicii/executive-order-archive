@@ -12,7 +12,8 @@ extends Nether\Avenue\Router {
 		parent::__construct($Opt);
 
 		$this
-		->AddRoute('{@}//index','Routes\Home::Index');
+		->AddRoute('{@}//index','Routes\Home::Index')
+		->AddRoute('{@}//about','Routes\Home::About');
 
 		return;
 	}
