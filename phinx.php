@@ -7,12 +7,15 @@ require(sprintf(
 	dirname(__FILE__)
 ));
 
+$Connection = (new Nether\Database)->GetDriver();
+$Database = Nether\Option::Get('nether-database-connections')['Default']['Database'];
+
 return [
 	'environments' => [
 		'default_database' => 'default',
 		'default' => [
-			'name' => 'app',
-			'connection' => (new Nether\Database)->GetDriver()
+			'name' => $Database,
+			'connection' => $Connection
 		]
 	],
 	'templates' => [
