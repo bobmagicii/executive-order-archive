@@ -14,12 +14,9 @@ tool: https://www.federalregister.gov/developers/api/v1/
 
 	protected
 	$URL = 'https://www.federalregister.gov/api/v1/documents.json'.
-	'?fields%5B%5D=abstract'.
-	'&fields%5B%5D=action'.
-	'&fields%5B%5D=body_html_url'.
-	'&fields%5B%5D=dates'.
+	'?fields%5B%5D=body_html_url'.
+	'&fields%5B%5D=citation'.
 	'&fields%5B%5D=document_number'.
-	'&fields%5B%5D=executive_order_notes'.
 	'&fields%5B%5D=executive_order_number'.
 	'&fields%5B%5D=full_text_xml_url'.
 	'&fields%5B%5D=html_url'.
@@ -28,18 +25,19 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&fields%5B%5D=president'.
 	'&fields%5B%5D=publication_date'.
 	'&fields%5B%5D=raw_text_url'.
-	'&fields%5B%5D=significant'.
 	'&fields%5B%5D=signing_date'.
 	'&fields%5B%5D=subtype'.
 	'&fields%5B%5D=title'.
 	'&fields%5B%5D=type'.
-	'&per_page=100'.
-	'&page=1'.
+	'&per_page=20'.
 	'&order=newest'.
-	'&conditions%5Btype%5D%5B%5D=PRESDOCU'.
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=determination'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=executive_order'.
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=memorandum'.
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=notice'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
-	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order';
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order'.
+	'&conditions%5Bpresident%5D%5B%5D=donald-trump';
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -47,6 +45,9 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	protected function
 	GetCacheFile():
 	String {
+	/*//
+	@override
+	//*/
 
 		return sprintf(
 			'%s/FederalRegister-%s.txt',
@@ -58,8 +59,38 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	protected function
 	Itemise($Data):
 	Array {
+	/*//
+	@override
+	//*/
+
+		// dropping a formatted version in the cache dir so i can inspect.
+
+		$Filename = preg_replace(
+			'/\.txt$/', '.json',
+			$this->GetCacheFile()
+		);
+
+		file_put_contents($Filename,json_encode($Data,JSON_PRETTY_PRINT));
+
+		////////
 
 		$Output = [];
+
+		foreach($Data->results as $Result)
+		$Output[] = new App\DataOrder([
+			'CitationID'    => $Result->citation,
+			'DocumentID'    => $Result->document_number,
+			'DocumentType'  => $Result->type,
+			'SignedBy'      => $Result->president->identifier,
+			'DatePublished' => $Result->publication_date,
+			'DateSigned'    => $Result->signing_date,
+			'Title'         => $Result->title,
+			'URLs'          => [
+				'Federal Register HTML' => $Result->html_url,
+				'Federal Register JSON' => $Result->json_url,
+				'Federal Register PDF'  => $Result->pdf_url
+			]
+		]);
 
 		return $Output;
 	}
