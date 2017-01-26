@@ -1,0 +1,30 @@
+<?php
+
+use $useClassName;
+
+class $className
+extends $baseClassName {
+
+	public function
+	Up() {
+	/*//
+	operations to perform when upgrading the database with this migration.
+	//*/
+
+		// ...
+
+		return;
+	}
+
+	public function
+	Down() {
+	/*//
+	operations to perform when downgrading the database with this migration.
+	//*/
+
+		// ...
+
+		return;
+	}
+
+}

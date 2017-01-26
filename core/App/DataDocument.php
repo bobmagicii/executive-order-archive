@@ -4,14 +4,15 @@ namespace App;
 use \App    as App;
 use \Nether as Nether;
 
-class DataOrder
+class DataDocument
 extends Nether\Object {
 /*//
 represents a parsed executive order from a datasource. this will be the api we
 use to transition external data into our database.
 //*/
 
-	public static $PropertyMap = [
+	public static
+	$PropertyMap = [
 		'CitationID'    => 'CitationID',
 		'DocumentID'    => 'DocumentID',
 		'DocumentType'  => 'DocumentType',

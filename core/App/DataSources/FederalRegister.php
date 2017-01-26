@@ -77,10 +77,10 @@ tool: https://www.federalregister.gov/developers/api/v1/
 		$Output = [];
 
 		foreach($Data->results as $Result)
-		$Output[] = new App\DataOrder([
+		$Output[] = new App\DataDocument([
 			'CitationID'    => $Result->citation,
 			'DocumentID'    => $Result->document_number,
-			'DocumentType'  => $Result->type,
+			'DocumentType'  => $Result->subtype,
 			'SignedBy'      => $Result->president->identifier,
 			'DatePublished' => $Result->publication_date,
 			'DateSigned'    => $Result->signing_date,

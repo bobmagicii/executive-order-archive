@@ -11,9 +11,12 @@ return [
 	'environments' => [
 		'default_database' => 'default',
 		'default' => [
-			'name' => 'App',
+			'name' => 'app',
 			'connection' => (new Nether\Database)->GetDriver()
 		]
+	],
+	'templates' => [
+		'file' => '%%PHINX_CONFIG_DIR%%/phinx/Template.txt'
 	],
 	'paths' => [
 		'migrations' => '%%PHINX_CONFIG_DIR%%/phinx'
