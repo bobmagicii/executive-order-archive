@@ -30,6 +30,40 @@ DataSource {
 		return $this->Items;
 	}
 
+	////////
+	////////
+
+	protected
+	$Filename = NULL;
+
+	public function
+	GetFilename():
+	String {
+
+		return $this->Filename;
+	}
+
+	public function
+	SetFilename(String $Filename):
+	self {
+
+		$this->Filename = $Filename;
+		return $this;
+	}
+
+	////////
+	////////
+
+	protected
+	$FromCache = FALSE;
+
+	public function
+	FromCache():
+	Bool {
+
+		return $this->FromCache;
+	}
+
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
@@ -38,12 +72,6 @@ DataSource {
 
 		$this->Items = new Nether\Object\Datastore;
 
-		// get our cake.
-		$Result = $this->Parse($this->Fetch());
-
-		// eat our cake.
-		$this->Items->SetData($this->Itemise($Result));
-
 		return;
 	}
 
@@ -51,12 +79,65 @@ DataSource {
 	////////////////////////////////////////////////////////////////
 
 	public function
+	Query():
+	Void {
+
+		// fetch.
+		$Raw = $this->Fetch();
+
+		// decode.
+		$Result = $this->Parse($Raw);
+
+		// process.
+		$Data = $this->Itemise($Result);
+
+		// store.
+		$this->GetItems()->SetData($Data);
+
+		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
 	Fetch():
 	String {
 	/*//
 	@date 2017-01-25
 	perform the http request and return the raw data that resulted from it.
 	//*/
+
+		$Raw = $this->Fetch_FromCache();
+
+		if($Raw) {
+			$this->FromCache = true;
+			return $Raw;
+		}
+
+		////////
+
+		$Raw = $this->Fetch_FromRemote();
+		$this->Cache($Raw);
+
+		return $Raw;
+	}
+
+	protected function
+	Fetch_FromCache():
+	?String {
+
+		if($this->Filename)
+		if(file_exists($this->Filename))
+		if(is_readable($this->Filename))
+		return file_get_contents($this->Filename);
+
+		return NULL;
+	}
+
+	protected function
+	Fetch_FromRemote():
+	?String {
 
 		$Bit = new Nether\Input\Filter(parse_url($this->URL));
 		$Raw = file_get_contents($this->URL);
@@ -67,7 +148,17 @@ DataSource {
 		return $Raw;
 	}
 
-	abstract protected function
+	protected function
+	Cache(String $Raw):
+	Void {
+
+		if($this->Filename)
+		file_put_contents($this->Filename,$Raw);
+
+		return;
+	}
+
+	protected abstract function
 	Parse(String $Raw);
 	/*//
 	@date 2017-01-25
@@ -75,7 +166,7 @@ DataSource {
 	directly translates to as a language structure.
 	//*/
 
-	abstract protected function
+	protected abstract function
 	Itemise($Data):
 	Array;
 	/*//

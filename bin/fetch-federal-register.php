@@ -34,13 +34,15 @@ extends Nether\Console\Client {
 			'Filename' => NULL
 		];
 
-		$Filename = sprintf(
-			'%s/federalregister-%s.json',
-			CacheRoot,
-			Date('Ymd')
-		);
-
 		$Source = new App\DataSources\FederalRegister;
+
+		$Source->Query();
+
+		if($Source->FromCache())
+		$this::Message('Data loaded from cache.');
+
+		else
+		$this::Message('Data downloaded from remote.');
 
 		echo json_encode($Output,JSON_PRETTY_PRINT);
 		return 0;

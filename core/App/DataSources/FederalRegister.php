@@ -41,6 +41,25 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order';
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public function
+	__construct() {
+		parent::__construct();
+
+		$this->Filename = sprintf(
+			'%s/FederalRegister-%s.txt',
+			CacheRoot,
+			date('Ymd')
+		);
+
+		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
 	protected function
 	Itemise($Data):
 	Array {
