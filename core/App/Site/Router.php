@@ -15,6 +15,9 @@ extends Nether\Avenue\Router {
 		->AddRoute('{@}//index','Routes\Home::Index')
 		->AddRoute('{@}//about','Routes\Home::About');
 
+		$this
+		->AddRoute('{@}//api-web/v1/test','Routes\ApiWeb1\Test::Index');
+
 		return;
 	}
 

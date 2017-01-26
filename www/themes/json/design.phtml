@@ -1,0 +1,10 @@
+<?php
+
+echo json_encode([
+	'STDOUT' => (String)$surface->get('stdout'),
+	'Error' => (Int)$surface->Get('api:error'),
+	'Message' => (String)$surface->Get('api:message'),
+	'Location' => (((String)$surface->Get('api:location'))?:(null)),
+	'Payload' => (Array)$surface->Get('api:payload')
+],JSON_PRETTY_PRINT);
+
