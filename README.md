@@ -8,16 +8,22 @@ be good enough.
 
 # Local Dev Setup
 
-Install dependencies.
+## Install dependencies.
+
+This is handled by Composer. Here is an example if your composer in installed
+system wide as it should be.
 
 ```
-$ composer install
+> composer install
 ```
 
-Create `conf/database.conf.php` to setup the details for the MySQL connection.
-It is dangerous to go alone, take this. You need to know your server name,
-your user name, your password, and the name of the database. Leave the rest as
-I have it.
+## Configure Database Connection
+
+Create an empty database in MySQL with access.
+
+Create file `conf/database.conf.php` and copy paste the following example into
+it, changing the Hostname, Username, Password, and Database, to values relevant
+to your system. Leave everything else about this alone.
 
 ```php
 <?php
@@ -25,22 +31,40 @@ I have it.
 Nether\Option::Set('nether-database-connections',[
 	'Default' => [
 		'Type'     => 'mysql',
-		'Hostname' => 'ur-servername',
-		'Username' => 'ur-username',
-		'Password' => 'ur-password',
-		'Database' => 'ur-db-name'
+		'Hostname' => 'server',
+		'Username' => 'user',
+		'Password' => 'pass',
+		'Database' => 'dbname'
 	]
 ]);
 ```
 
-Setup the database.
+## Set Up Database
+
+This is handled by Phinx, which was installed by Composer earlier. Run the
+migrate command and all the tables will be setup in the database automagically.
 
 ```
-$ phinx migrate
+> vendor\bin\phinx migrate
 ```
 
-Start up the test server.
+## Importing Data
+
+You're gonna want data, too. This will hit the public government server to fetch
+all of the available data it can that is relevant to this application. It will
+also cache a copy of the data as they gave it to us in the `cache` directory.
 
 ```
-$ php -S localhost:80 -t www
+> php bin\fetch-federal-register.php run
 ```
+
+## Test HTTP Server
+
+If you are not not running this on a real server you can pop the PHP test server
+up locally to test the app.
+
+```
+> php -S localhost:80 -t www
+```
+
+Then you just have to hit up `http://localhost` to test.
