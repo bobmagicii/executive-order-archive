@@ -29,7 +29,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&fields%5B%5D=subtype'.
 	'&fields%5B%5D=title'.
 	'&fields%5B%5D=type'.
-	'&per_page=20'.
+	'&per_page=100'.
 	'&order=newest'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=determination'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=executive_order'.
