@@ -34,27 +34,6 @@ DataSource {
 	////////
 
 	protected
-	$Filename = NULL;
-
-	public function
-	GetFilename():
-	String {
-
-		return $this->Filename;
-	}
-
-	public function
-	SetFilename(String $Filename):
-	self {
-
-		$this->Filename = $Filename;
-		return $this;
-	}
-
-	////////
-	////////
-
-	protected
 	$FromCache = FALSE;
 
 	public function
@@ -78,6 +57,8 @@ DataSource {
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
+	// public api.
+
 	public function
 	Query():
 	Void {
@@ -99,6 +80,28 @@ DataSource {
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
+
+	// internal api.
+
+	protected function
+	Cache(String $Raw):
+	Void {
+	/*//
+	used to store the draw data we got from the remote datasource locally.
+	to be honest this is mostly so i can test over and over without having
+	to hit a government server 300 times today and causing fbi show up at my
+	office on the federal sources.
+	//*/
+
+		$Filename = $this->GetCacheFile();
+
+		////////
+
+		if($Filename)
+		file_put_contents($Filename,$Raw);
+
+		return;
+	}
 
 	protected function
 	Fetch():
@@ -126,11 +129,16 @@ DataSource {
 	protected function
 	Fetch_FromCache():
 	?String {
+	/*//
+	@date 2017-01-25
+	concerns for fetching from a cached file.
+	//*/
 
-		if($this->Filename)
-		if(file_exists($this->Filename))
-		if(is_readable($this->Filename))
-		return file_get_contents($this->Filename);
+		$Filename = $this->GetCacheFile();
+
+		if($Filename)
+		if(file_exists($Filename) && is_readable($Filename))
+		return file_get_contents($Filename);
 
 		return NULL;
 	}
@@ -138,6 +146,10 @@ DataSource {
 	protected function
 	Fetch_FromRemote():
 	?String {
+	/*//
+	@date 2017-01-25
+	concerns for fetching from the remote datasource.
+	//*/
 
 		$Bit = new Nether\Input\Filter(parse_url($this->URL));
 		$Raw = file_get_contents($this->URL);
@@ -148,14 +160,23 @@ DataSource {
 		return $Raw;
 	}
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	// abstracts and other methods designed to be overridden.
+
 	protected function
-	Cache(String $Raw):
-	Void {
+	GetCacheFile():
+	String {
+	/*//
+	@date 2017-01-26
+	return the filename used to store a copy of the data locally. we do this
+	as a method so it can magic dynamic itself without having to do silly
+	things within a constructor for a property. this default implementation
+	disables cache.
+	//*/
 
-		if($this->Filename)
-		file_put_contents($this->Filename,$Raw);
-
-		return;
+		return NULL;
 	}
 
 	protected abstract function
