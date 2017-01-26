@@ -15,9 +15,9 @@ extends Nether\Console\Client {
 
 		$this::Messages(
 			'',
-			'USAGE: eoa-fetch-federal-register run',
+			'USAGE: fetch-federal-register run',
 			'',
-			'Fetches the data from the federal register for today and caches it to disk. Prints JSON about the result.',
+			'Fetches the data from the federal register for today.',
 			''
 		);
 
@@ -28,15 +28,10 @@ extends Nether\Console\Client {
 	HandleRun():
 	Int {
 
-		$Output = [
-			'Error'    => 0,
-			'Message'  => 0,
-			'Filename' => NULL
-		];
-
 		$Source = new App\DataSources\FederalRegister;
-
 		$Source->Query();
+
+		////////
 
 		if($Source->FromCache())
 		$this::Message('Data loaded from cache.');
@@ -44,7 +39,11 @@ extends Nether\Console\Client {
 		else
 		$this::Message('Data downloaded from remote.');
 
-		echo json_encode($Output,JSON_PRETTY_PRINT);
+		////////
+
+		foreach($Source->GetItems() as $Document)
+		$Document->Store();
+
 		return 0;
 	}
 

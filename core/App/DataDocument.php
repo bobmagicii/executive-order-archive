@@ -23,4 +23,39 @@ use to transition external data into our database.
 		'URLs'          => 'URLs'
 	];
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
+	__ready():
+	Void {
+
+		// for some reason trumps very first thing has no signing date
+		// in the dataset so lets do some error handling as we find them.
+
+		if(!$this->DatePublished && $this->DateSigned)
+		$this->DatePublished = $this->DateSigned;
+
+		if(!$this->DateSigned && $this->DatePublished)
+		$this->DateSigned = $this->DatePublished;
+
+		// enforce date format just in case one of the datasources uses
+		// something odd.
+
+		$this->DatePublished = date('Y-m-d',strtotime($this->DatePublished));
+		$this->DateSigned = date('Y-m-d',strtotime($this->DateSigned));
+
+		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public function
+	Store():
+	App\Document {
+
+		return App\Document::Create($this);
+	}
+
 }

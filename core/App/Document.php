@@ -117,4 +117,79 @@ represents an executive document in our database.
 		return $Output;
 	}
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public static function
+	Create($Opt=NULL):
+	self {
+
+		$Old = NULL;
+		$SQL = NULL;
+		$Result = NULL;
+		$ID = NULL;
+
+		////////
+
+		$Opt = new Nether\Object($Opt,[
+			'CitationID'    => NULL,
+			'DocumentID'    => NULL,
+			'DocumentType'  => NULL,
+			'SignedBy'      => NULL,
+			'DatePublished' => NULL,
+			'DateSigned'    => NULL,
+			'Title'         => NULL,
+			'URLs'          => []
+		]);
+
+		if(!$Opt->CitationID)
+		throw new Exception('Documents must have a CitationID');
+
+		if(!is_array($Opt->URLs))
+		throw new Exception('URLs must be an array.');
+
+		////////
+
+		$Opt->JsonDataURLs = json_encode($Opt->URLs);
+
+		////////
+
+		// see if we already have this document.
+		// @todo - if found, check urls array to make sure we didnt just
+		// add new ones to the document. moar sauces!
+
+		$Old = self::GetByCitationID($Opt->CitationID);
+		if($Old) return $Old;
+
+		////////
+
+		$SQL = Nether\Database::Get()->NewVerse();
+
+		$Result = $SQL
+		->Insert('Documents')
+		->Values([
+			'doc_citation_id'    => ':CitationID',
+			'doc_document_id'    => ':DocumentID',
+			'doc_document_type'  => ':DocumentType',
+			'doc_signed_by'      => ':SignedBy',
+			'doc_date_published' => ':DatePublished',
+			'doc_date_signed'    => ':DateSigned',
+			'doc_title'          => ':Title',
+			'doc_json_urls'      => ':JsonDataURLs'
+		])
+		->Query($Opt);
+
+		if(!$Result->IsOK())
+		throw new Exception('Document::Create critical failure');
+
+		$ID = $Result->GetInsertID();
+
+		if(!$ID)
+		throw new Exception('Document::Create weird failure');
+
+		////////
+
+		return static::Get((Int)$ID);
+	}
+
 }
