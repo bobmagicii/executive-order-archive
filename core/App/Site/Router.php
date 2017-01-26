@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Site;
 use \App    as App;
 use \Nether as Nether;
 

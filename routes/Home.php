@@ -5,7 +5,8 @@ use \App    as App;
 use \Routes as Routes;
 use \Nether as Nether;
 
-class Home {
+class Home
+extends App\Site\RoutePublicWeb {
 
 	public function
 	Index():
