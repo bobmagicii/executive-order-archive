@@ -1,3 +1,14 @@
+<?php
+
+$Documents = $surface->Get('RecentDocuments');
+
+?>
 <div class="Contain"><div class="PaddingVerticalNormal">
-	[list of the most recent presidential orders]
+	<table>
+<?php foreach($Documents as $Doc): ?>
+		<tr>
+			<td><?php echo $Doc->GetTitle() ?></td>
+		</tr>
+<?php endforeach; ?>
+	</table>
 </div></div>

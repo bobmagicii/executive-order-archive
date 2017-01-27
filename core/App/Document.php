@@ -26,6 +26,19 @@ represents an executive document in our database.
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
+	protected
+	$Title = '';
+
+	public function
+	GetTitle():
+	String {
+
+		return $this->Title;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
 	public function
 	__ready():
 	Void {
@@ -109,10 +122,57 @@ represents an executive document in our database.
 	public static function
 	Search($Opt=NULL):
 	Nether\Object\Datastore {
+	/*//
+	perform a search for documents.
+	//*/
 
 		$Output = new Nether\Object\Datastore;
+		$SQL = (new Nether\Database)->NewVerse();
 
-		// @todo lol
+		////////
+
+		$Opt = new Nether\Object($Opt,[
+			'Sort'  => 'newest',
+			'Limit' => 0,
+			'Page'  => 1
+		]);
+
+		if(!is_numeric($Opt->Page) || $Opt->Page < 1)
+		$Opt->Page = 1;
+
+		$Opt->Offset = ($Opt->Page - 1) * $Opt->Limit;
+
+		////////
+
+		$SQL
+		->Select('Documents')
+		->Fields('*');
+
+		if($Opt->Limit) $SQL
+		->Offset($Opt->Offset)
+		->Limit($Opt->Limit);
+
+		////////
+
+		switch($Opt->Sort) {
+			case 'newest':
+			$SQL->Sort('doc_date_signed',$SQL::SortAsc);
+			break;
+
+			case 'oldest':
+			$SQL->Sort('doc_date_signed',$SQL::SortDesc);
+			break;
+		}
+
+		////////
+
+		$Result = $SQL->Query($Opt);
+
+		if(!$Result->IsOK())
+		throw new Exception('Document::Search() critical failure');
+
+		while($Row = $Result->Next())
+		$Output->Push(new static($Row));
 
 		return $Output;
 	}
@@ -123,6 +183,11 @@ represents an executive document in our database.
 	public static function
 	Create($Opt=NULL):
 	self {
+	/*//
+	create a new document in the database. if one with the same citation
+	number already exists then it will return the existing one silently
+	rather than create a duplicate.
+	//*/
 
 		$Old = NULL;
 		$SQL = NULL;

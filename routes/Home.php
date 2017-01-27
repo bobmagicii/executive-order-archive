@@ -12,16 +12,12 @@ extends App\Site\RoutePublicWeb {
 	Index():
 	Void {
 
+		$this->Surface->Set('RecentDocuments',App\Document::Search([
+			'Sort' => 'newest'
+		]));
+
 		$this->Surface->Area('home/chart-primary');
 		$this->Surface->Area('home/orders-recent');
-		return;
-	}
-
-	public function
-	About():
-	Void {
-
-		echo "if you're here, you're all about the bass.";
 		return;
 	}
 
