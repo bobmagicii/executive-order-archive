@@ -1,7 +1,7 @@
 <?php
 
 Nether\Option::Set([
-	'app-name'        => 'App',
+	'app-name'        => 'Presidential Order Archive',
 	'app-short-desc'  => 'A list and some stats about presidential orders.',
 	'app-long-desc'   => 'A list and some stats about presidential orders.',
 	'nether-web-root' => WebRoot,

@@ -12,7 +12,8 @@ extends App\Site\RoutePublicWeb {
 	Index():
 	Void {
 
-		echo "if you're here, you're home.";
+		$this->Surface->Area('home/chart-primary');
+		$this->Surface->Area('home/orders-recent');
 		return;
 	}
 
