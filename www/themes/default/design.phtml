@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>This is the title.</title>
+	<title><?php $surface->Show('page-title') ?></title>
+
+	<!-- scripting -->
+	<script type="text/javascript" src="/share/other/dist/scripts.js"></script>
+
+	<!-- styling -->
+	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&amp;subset=latin-ext" />
+	<link type="text/css" rel="stylesheet" href="/share/other/dist/styles.css" />
+	<link type="text/css" rel="stylesheet" href="/themes/default/design.css" />
 </head>
 <body>
 
+<header>
+	<div class="Contain"><div>
+		<h1><i class="Red fa fa-bank"></i> Presidential Order Archive</h1>
+	</div></div>
+	<div class="Contain"><div>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/about/">About</a></li>
+				<li><a href="/api/">API</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div id="Main" class="Contain"><div>
 <?php $surface->Show('stdout') ?>
+
+</div></div>
 
 </body>
 </html>

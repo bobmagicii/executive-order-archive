@@ -1,0 +1,17 @@
+{
+    "AddFileHeader": false,
+    "AddScriptHeader": true,
+    "ContentType": "text\/css",
+    "Directories": [
+        "css"
+    ],
+    "DistDir": "dist",
+    "Extensions": [
+        "css"
+    ],
+    "Files": [],
+    "Minify": false,
+    "OutputFile": "styles.css",
+    "OutputMinFile": "styles.min.css",
+    "Print": false
+}

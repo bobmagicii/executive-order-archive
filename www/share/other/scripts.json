@@ -1,0 +1,17 @@
+{
+    "AddFileHeader": true,
+    "AddScriptHeader": true,
+    "ContentType": "text\/javascript",
+    "Directories": [
+        "js"
+    ],
+    "DistDir": "dist",
+    "Extensions": [
+        "js"
+    ],
+    "Files": [],
+    "Minify": false,
+    "OutputFile": "scripts.js",
+    "OutputMinFile": "scripts.min.js",
+    "Print": false
+}
