@@ -4,11 +4,27 @@ $Documents = $surface->Get('RecentDocuments');
 
 ?>
 <div class="Contain"><div class="PaddingVerticalNormal">
-	<table>
+	<table class="DocumentTable">
+		<thead>
+		<tr>
+			<th class="Title">Document Title</th>
+			<th class="Type">Type</th>
+			<th class="DateSigned">Date Signed</th>
+			<th class="DatePublished">Date Published</th>
+		</tr>
+		</thead>
+		<tbody>
 <?php foreach($Documents as $Doc): ?>
 		<tr>
-			<td><?php echo $Doc->GetTitle() ?></td>
+			<td class="Title">
+				<a href=""><?php echo $Doc->GetTitle() ?></a>
+				<div>Signed By: <?php echo $Doc->GetSignedBy() ?></div>
+			</td>
+			<td class="Type"><?php echo $Doc->GetDocumentType() ?></td>
+			<td class="DateSigned Date"><?php echo $Doc->GetDateSigned() ?></td>
+			<td class="DatePublished Date"><?php echo $Doc->GetDatePublished() ?></td>
 		</tr>
 <?php endforeach; ?>
+		</tbody>
 	</table>
 </div></div>

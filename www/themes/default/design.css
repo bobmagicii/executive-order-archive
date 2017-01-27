@@ -16,7 +16,6 @@ body {
 a:link,
 a:visited {
 	color: #eee;
-	font-size: 0.8em;
 	font-weight: 400;
 	text-decoration: none;
 }
@@ -40,6 +39,8 @@ p {
 p:last-child {
 	margin-bottom: 0px;
 }
+
+
 
 /*//////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
@@ -122,4 +123,52 @@ nav ul li a:visited {
 	background-color: #202020;
 }
 
+/*//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
 
+.DocumentTable {
+	border-collapse: collapse;
+}
+
+.DocumentTable
+thead th {
+	font-weight: bold;
+	padding: 16px 16px;
+	text-align: left;
+}
+
+.DocumentTable
+tbody tr {
+	border-top: 1px solid #333;
+}
+
+.DocumentTable
+tbody td {
+	padding: 16px 16px;
+}
+
+.DocumentTable
+td.Title {
+	width: 50%;
+}
+
+.DocumentTable
+td.Title a {
+	border-bottom: 1px dotted #888;
+}
+
+.DocumentTable
+td.Title div {
+	font-size: 0.8em;
+	opacity: 0.5;
+	padding-top: 4px;
+}
+
+.DocumentTable
+.Type,
+.DocumentTable
+.DateSigned,
+.DocumentTable
+.DatePublished {
+	text-align: center;
+}

@@ -12,7 +12,7 @@ represents an executive document in our database.
 
 	public static
 	$PropertyMap = [
-		'doc_id' => 'ID:int',
+		'doc_id'             => 'ID:int',
 		'doc_citation_id'    => 'CitationID',
 		'doc_document_id'    => 'DocumentID',
 		'doc_document_type'  => 'DocumentType',
@@ -27,6 +27,68 @@ represents an executive document in our database.
 	////////////////////////////////////////////////////////////////
 
 	protected
+	$ID = '';
+
+	public function
+	GetID():
+	Int {
+
+		return $this->ID;
+	}
+
+	////////
+	////////
+
+	protected
+	$CitationID = '';
+
+	public function
+	GetCitationID():
+	String {
+
+		return $this->CitationID;
+	}
+
+	////////
+	////////
+
+	protected
+	$DocumentID = '';
+
+	public function
+	GetDocumentID():
+	String {
+
+		return $this->DocumentID;
+	}
+
+	////////
+	////////
+
+	protected
+	$DocumentType = '';
+
+	public function
+	GetDocumentType():
+	String {
+
+		return $this->DocumentType;
+	}
+
+	////////
+	////////
+
+	public function
+	GetSignedBy():
+	String {
+
+		return $this->SignedBy;
+	}
+
+	////////
+	////////
+
+	protected
 	$Title = '';
 
 	public function
@@ -34,6 +96,32 @@ represents an executive document in our database.
 	String {
 
 		return $this->Title;
+	}
+
+	////////
+	////////
+
+	protected
+	$DatePublished = '';
+
+	public function
+	GetDatePublished():
+	String {
+
+		return $this->DatePublished;
+	}
+
+	////////
+	////////
+
+	protected
+	$DateSigned = '';
+
+	public function
+	GetDateSigned():
+	String {
+
+		return $this->DateSigned;
 	}
 
 	////////////////////////////////////////////////////////////////
