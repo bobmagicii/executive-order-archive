@@ -244,11 +244,11 @@ represents an executive document in our database.
 
 		switch($Opt->Sort) {
 			case 'newest':
-			$SQL->Sort('doc_date_signed',$SQL::SortAsc);
+			$SQL->Sort('doc_date_published',$SQL::SortDesc);
 			break;
 
 			case 'oldest':
-			$SQL->Sort('doc_date_signed',$SQL::SortDesc);
+			$SQL->Sort('doc_date_published',$SQL::SortAsc);
 			break;
 		}
 
