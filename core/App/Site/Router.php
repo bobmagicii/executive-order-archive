@@ -13,7 +13,8 @@ extends Nether\Avenue\Router {
 
 		$this
 		->AddRoute('{@}//index','Routes\Home::Index')
-		->AddRoute('{@}//about','Routes\Home::About');
+		->AddRoute('{@}//about','Routes\About::Index')
+		->AddRoute('{@}//api','Routes\Api::Index');
 
 		$this
 		->AddRoute('{@}//api-web/v1/test','Routes\ApiWeb1\Test::Index');
