@@ -14,6 +14,14 @@ class RoutePublicWeb {
 		$this->Get = new Nether\Input\Filter($_GET);
 		$this->Post = new Nether\Input\Filter($_POST);
 
+		$this->OnConstruct(...func_get_args());
+		return;
+	}
+
+	protected function
+	OnConstruct():
+	Void {
+
 		return;
 	}
 

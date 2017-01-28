@@ -209,19 +209,21 @@ represents an executive document in our database.
 
 	public static function
 	Search($Opt=NULL):
-	Nether\Object\Datastore {
+	App\Datastore {
 	/*//
 	perform a search for documents.
 	//*/
 
-		$Output = new Nether\Object\Datastore;
+		$Output = new App\Datastore;
 		$SQL = (new Nether\Database)->NewVerse();
 
 		////////
 
+		// group, validate, and generate options.
+
 		$Opt = new Nether\Object($Opt,[
 			'Sort'  => 'newest',
-			'Limit' => 0,
+			'Limit' => 25,
 			'Page'  => 1
 		]);
 
@@ -232,6 +234,8 @@ represents an executive document in our database.
 
 		////////
 
+		// base query.
+
 		$SQL
 		->Select('Documents')
 		->Fields('*');
@@ -241,6 +245,8 @@ represents an executive document in our database.
 		->Limit($Opt->Limit);
 
 		////////
+
+		// apply sortings.
 
 		switch($Opt->Sort) {
 			case 'newest':
@@ -261,6 +267,11 @@ represents an executive document in our database.
 
 		while($Row = $Result->Next())
 		$Output->Push(new static($Row));
+
+		$Output
+		->SetTotal($Result->GetCount())
+		->SetPage($Opt->Page)
+		->SetLimit($Opt->Limit);
 
 		return $Output;
 	}
