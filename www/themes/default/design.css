@@ -1,3 +1,6 @@
+/*// generic global overrides //////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
+
 * {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-weight: 300;
@@ -42,22 +45,22 @@ p:last-child {
 
 
 
-/*//////////////////////////////////////////////////////////////////////////////
+/*// generic local overrides ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
 
+.PaddingVerticalBarely { padding-top: 16px !important; padding-bottom: 16px !important; }
 .PaddingVerticalNormal { padding-top: 32px !important; padding-bottom: 32px !important; }
 .PaddingVerticalSpaaace { padding-top: 64px !important; padding-bottom: 64px !important; }
 
 .TextColourRed { color: #B42F30 !important; }
 .TextAlignCenter { text-align: center !important; }
 
-.FloatClear {
-	border: 0px;
-	clear: both;
-	float: none;
-	margin: 0px;
-	padding: 0px;
-}
+.FloatClear { border: 0px; clear: both; float: none; margin: 0px; padding: 0px; }
+.FloatLeft { float: left; }
+.FloatRight { float: right; }
+
+/*// primary page structures ///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
 
 .Contain
 > div {
@@ -65,18 +68,6 @@ p:last-child {
 	padding: 10px 0px;
 	width: 960px;
 }
-
-.AmericaFuckYeah {
-	background-image: url(gfx/bg.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top center;
-	box-shadow: 0px 0px 24px #000 inset;
-	height: 500px;
-}
-
-/*//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////*/
 
 header
 > .Contain:nth-child(1) {
@@ -123,7 +114,7 @@ nav ul li a:visited {
 	background-color: #202020;
 }
 
-/*//////////////////////////////////////////////////////////////////////////////
+/*// document table layout /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
 
 .DocumentTable {
@@ -170,5 +161,24 @@ td.Title div {
 .DateSigned,
 .DocumentTable
 .DatePublished {
+	text-align: center;
+}
+
+/*// promo/chart area //////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
+
+.Promo.AmericaFuckYeah {
+	background-image: url(gfx/bg.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+	box-shadow: 0px 0px 24px #000 inset;
+	height: 500px;
+}
+
+/*// App Site Element styles ///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
+
+.Element-Pager {
 	text-align: center;
 }

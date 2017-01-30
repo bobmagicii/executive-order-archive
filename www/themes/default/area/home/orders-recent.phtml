@@ -1,6 +1,7 @@
 <?php
 
 $Documents = $surface->Get('RecentDocuments');
+$Pager = new App\Site\Element\Pager;
 
 ?>
 <div class="Contain"><div class="PaddingVerticalNormal">
@@ -27,4 +28,7 @@ $Documents = $surface->Get('RecentDocuments');
 <?php endforeach; ?>
 		</tbody>
 	</table>
+
+<?php echo $Pager ?>
+
 </div></div>
