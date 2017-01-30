@@ -223,7 +223,7 @@ represents an executive document in our database.
 
 		$Opt = new Nether\Object($Opt,[
 			'Sort'  => 'newest',
-			'Limit' => 25,
+			'Limit' => 10,
 			'Page'  => 1
 		]);
 
@@ -238,7 +238,7 @@ represents an executive document in our database.
 
 		$SQL
 		->Select('Documents')
-		->Fields('*');
+		->Fields('SQL_CALC_FOUND_ROWS *');
 
 		if($Opt->Limit) $SQL
 		->Offset($Opt->Offset)
@@ -262,6 +262,11 @@ represents an executive document in our database.
 
 		$Result = $SQL->Query($Opt);
 
+		$Found = $SQL->GetDatabase()
+		->Query('SELECT FOUND_ROWS() AS FoundRows')
+		->Next()
+		->FoundRows;
+
 		if(!$Result->IsOK())
 		throw new Exception('Document::Search() critical failure');
 
@@ -269,7 +274,7 @@ represents an executive document in our database.
 		$Output->Push(new static($Row));
 
 		$Output
-		->SetTotal($Result->GetCount())
+		->SetTotal($Found)
 		->SetPage($Opt->Page)
 		->SetLimit($Opt->Limit);
 

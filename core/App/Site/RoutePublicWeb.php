@@ -14,6 +14,16 @@ class RoutePublicWeb {
 		$this->Get = new Nether\Input\Filter($_GET);
 		$this->Post = new Nether\Input\Filter($_POST);
 
+		Nether\Ki::Queue(
+			'surface-render-scope',
+			function(Array &$Scope):
+			Void {
+				$Scope['route'] = $this;
+				return;
+			},
+			TRUE
+		);
+
 		$this->OnConstruct(...func_get_args());
 		return;
 	}

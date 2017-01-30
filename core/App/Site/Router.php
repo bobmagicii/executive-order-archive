@@ -19,6 +19,16 @@ extends Nether\Avenue\Router {
 		$this
 		->AddRoute('{@}//api-web/v1/test','Routes\ApiWeb1\Test::Index');
 
+		Nether\Ki::Queue(
+			'surface-render-scope',
+			function(Array &$Scope):
+			Void {
+				$Scope['router'] = $this;
+				return;
+			},
+			TRUE
+		);
+
 		return;
 	}
 

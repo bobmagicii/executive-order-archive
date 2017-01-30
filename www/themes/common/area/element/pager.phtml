@@ -1,0 +1,9 @@
+<div class="Element-Pager">
+	<?php if($element->HasPrevPage()): ?><a class="Prev" href="<?php echo $element->GetPrevURL() ?>">&laquo; Prev</a><?php endif; ?>
+	<span class="Info">
+		Page <?php echo $element->GetPage() ?>
+		of <?php echo $element->GetPageCount() ?>
+		(<?php echo $element->GetItemCount() ?> Items)
+	</span>
+	<?php if($element->HasNextPage()): ?><a class="Next" href="<?php echo $element->GetNextURL() ?>">Next &raquo;</a><?php endif; ?>
+</div>

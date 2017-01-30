@@ -1,9 +1,22 @@
 <?php
 
 $Documents = $surface->Get('RecentDocuments');
-$Pager = new App\Site\Element\Pager;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+$Pager = function(App\Datastore $Data) use($router):
+App\Site\Element {
+
+	$Element = (App\Site\Element\Pager::NewFromDatastore($Data))
+	->SetNextURL($router->QueryCooker(['page'=>($Data->Page()+1)]))
+	->SetPrevURL($router->QueryCooker(['page'=>($Data->Page()-1)]));
+
+	return $Element;
+};
 
 ?>
+
 <div class="Contain"><div class="PaddingVerticalNormal">
 	<table class="DocumentTable">
 		<thead>
@@ -29,6 +42,6 @@ $Pager = new App\Site\Element\Pager;
 		</tbody>
 	</table>
 
-<?php echo $Pager ?>
+	<?php echo $Pager($Documents) ?>
 
 </div></div>

@@ -23,13 +23,28 @@ class Element {
 	__toString():
 	String {
 
+		$this->OnRender();
+
 		if($this->Area === NULL)
-		return sprintf(
-			'%s has no area set',
-			static::class
+		return sprintf('%s has no area set',static::class);
+
+		////////
+
+		// provide access to the special var $element within the widget
+		// template file. kept lower case to remain consistent with the
+		// special var $this, given the context of the theme file.
+
+		Nether\Ki::Queue(
+			'surface-render-scope',
+			function(Array &$Scope):
+			Void {
+				$Scope['element'] = $this;
+				return;
+			}
 		);
 
-		return Nether\Stash::Get('surface')
+		return
+		Nether\Stash::Get('surface')
 		->GetArea($this->Area);
 	}
 
@@ -38,6 +53,13 @@ class Element {
 
 	protected function
 	OnConstruct():
+	Void {
+
+		return;
+	}
+
+	protected function
+	OnRender():
 	Void {
 
 		return;

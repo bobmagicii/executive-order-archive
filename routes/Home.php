@@ -23,8 +23,9 @@ extends App\Site\RoutePublicWeb {
 	Void {
 
 		$this->Surface->Set('RecentDocuments',App\Document::Search([
-			'Sort' => 'newest',
-			'Page' => $this->Get->Page
+			'Sort'  => 'newest',
+			'Page'  => $this->Get->Page,
+			'Limit' => 10
 		]));
 
 		$this->Surface->Area('home/chart-primary');
