@@ -22,8 +22,15 @@ catch(Throwable $Error) {
 $Router = new App\Site\Router;
 Nether\Stash::Set('Router',$Router);
 
-try { $Router->Run(); }
-catch(Throwable $Error) {
-	echo "Page not found most likely bruh.";
-	exit(2);
+if(defined('DEVMODE') && DEVMODE === TRUE) {
+	$Router->Run();
+	exit(0);
+}
+
+else {
+	try { $Router->Run(); }
+	catch(Throwable $Error) {
+		echo "Page not found most likely bruh.";
+		exit(2);
+	}
 }
