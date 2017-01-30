@@ -49,6 +49,16 @@ represents an executive document in our database.
 		return $this->CitationID;
 	}
 
+	public function
+	GetCitationKey():
+	String {
+
+		return str_replace(
+			' ','-',
+			strtolower($this->CitationID)
+		);
+	}
+
 	////////
 	////////
 

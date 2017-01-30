@@ -31,7 +31,7 @@ App\Site\Element {
 <?php foreach($Documents as $Doc): ?>
 		<tr>
 			<td class="Title">
-				<a href=""><?php echo $Doc->GetTitle() ?></a>
+				<a href="/doc/<?php echo $Doc->GetCitationKey() ?>"><?php echo $Doc->GetTitle() ?></a>
 				<div>Signed By: <?php echo $Doc->GetSignedBy() ?></div>
 			</td>
 			<td class="Type"><?php echo $Doc->GetDocumentType() ?></td>
