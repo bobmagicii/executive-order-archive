@@ -61,7 +61,10 @@ class Term {
 				'YEAR(doc_date_published) PubYear',
 				'MONTH(doc_date_published) PubMonth'
 			])
-			->Where('doc_signed_by LIKE :SignedBy')
+			->Where([
+				'doc_signed_by LIKE :SignedBy',
+				'doc_date_published BETWEEN :Start AND :End'
+			])
 			->Group('PubYear, PubMonth')
 			->Query($Data);
 
