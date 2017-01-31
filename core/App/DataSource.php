@@ -61,10 +61,10 @@ DataSource {
 
 	public function
 	Query():
-	Void {
+	self {
 
 		// fetch.
-		$Raw = $this->Fetch();
+		$Raw = $this->Fetch($this->URL);
 
 		// decode.
 		$Result = $this->Parse($Raw);
@@ -75,7 +75,7 @@ DataSource {
 		// store.
 		$this->GetItems()->SetData($Data);
 
-		return;
+		return $this;
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ DataSource {
 	}
 
 	protected function
-	Fetch():
+	Fetch(String $URL):
 	String {
 	/*//
 	@date 2017-01-25
@@ -120,7 +120,7 @@ DataSource {
 
 		////////
 
-		$Raw = $this->Fetch_FromRemote();
+		$Raw = $this->Fetch_FromRemote($URL);
 		$this->Cache($Raw);
 
 		return $Raw;
@@ -144,15 +144,15 @@ DataSource {
 	}
 
 	protected function
-	Fetch_FromRemote():
+	Fetch_FromRemote(String $URL):
 	?String {
 	/*//
 	@date 2017-01-25
 	concerns for fetching from the remote datasource.
 	//*/
 
-		$Bit = new Nether\Input\Filter(parse_url($this->URL));
-		$Raw = file_get_contents($this->URL);
+		$Bit = new Nether\Input\Filter(parse_url($URL));
+		$Raw = file_get_contents($URL);
 
 		if($Raw === FALSE)
 		throw new Exception("error contacting {$Bit->Host}");

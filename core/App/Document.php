@@ -473,8 +473,10 @@ represents an executive document in our database.
 		])
 		->Query($Opt);
 
-		if(!$Result->IsOK())
-		throw new Exception('Document::Create critical failure');
+		if(!$Result->IsOK()) {
+			var_dump($Result);
+			throw new Exception('Document::Create critical failure');
+		}
 
 		$ID = $Result->GetInsertID();
 

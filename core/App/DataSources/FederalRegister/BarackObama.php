@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DataSources;
+namespace App\DataSources\FederalRegister;
 use \App    as App;
 use \Nether as Nether;
 
-class FederalRegister
-extends App\DataSourceJSON {
+class BarackObama
+extends App\DataSources\FederalRegister\PresidentHistory {
 /*//
 @date 2017-01-25
 fetch data from the federal register. the query was generated using their api
@@ -29,14 +29,16 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&fields%5B%5D=subtype'.
 	'&fields%5B%5D=title'.
 	'&fields%5B%5D=type'.
-	'&per_page=75'.
-	'&order=newest'.
+	'&per_page=100'.
+	'&page=1'.
+	'&order=oldest'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=determination'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=executive_order'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=memorandum'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=notice'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
-	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order';
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order'.
+	'&conditions%5Bpresident%5D%5B%5D=barack-obama';
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -49,10 +51,11 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	//*/
 
 		return sprintf(
-			'%s%sFederalRegister-%s.txt',
+			'%s%sFederalRegister-BarackObama-%s-%d.txt',
 			CacheRoot,
 			DIRECTORY_SEPARATOR,
-			date('Ymd')
+			date('Ymd'),
+			$this->Page
 		);
 	}
 
@@ -64,48 +67,11 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	//*/
 
 		return sprintf(
-			'%s%sFederalRegister',
+			'%s%sFederalRegister%sBarackObama',
 			ArchiveRoot,
+			DIRECTORY_SEPARATOR,
 			DIRECTORY_SEPARATOR
 		);
-	}
-
-	protected function
-	Itemise($Data):
-	Array {
-	/*//
-	@override
-	//*/
-
-		// dropping a formatted version in the cache dir so i can inspect.
-
-		$Filename = preg_replace(
-			'/\.txt$/', '.json',
-			$this->GetCacheFile()
-		);
-
-		file_put_contents($Filename,json_encode($Data,JSON_PRETTY_PRINT));
-
-		////////
-
-		$Output = [];
-
-		foreach($Data->results as $Result) {
-			$Output[] = new App\DataDocument([
-				'CitationID'    => $Result->citation,
-				'DocumentID'    => $Result->document_number,
-				'DocumentType'  => $Result->subtype,
-				'SignedBy'      => $Result->president->identifier,
-				'DatePublished' => $Result->publication_date,
-				'DateSigned'    => $Result->signing_date,
-				'Title'         => $Result->title,
-				'URLs'          => [
-					'Federal Register PDF'  => $Result->pdf_url
-				]
-			]);
-		}
-
-		return $Output;
 	}
 
 }
