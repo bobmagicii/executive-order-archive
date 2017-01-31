@@ -22,12 +22,18 @@ extends App\Site\RoutePublicWeb {
 	Index():
 	Void {
 
-		$this->Surface->Set('RecentDocuments',App\Document::Search([
+		$TermData = App\Term::GetMonthlySummary();
+
+		$Recent = App\Document::Search([
 			'Sort'  => 'newest',
 			'Page'  => $this->Get->Page,
 			'Limit' => 10
-		]));
+		]);
 
+		////////
+
+		$this->Surface->Set('TermData',$TermData);
+		$this->Surface->Set('RecentDocuments',$Recent);
 		$this->Surface->Area('home/chart-primary');
 		$this->Surface->Area('home/orders-recent');
 		return;

@@ -36,8 +36,8 @@ extends Nether\Object\Datastore {
 		return $this;
 	}
 
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
+	////////
+	////////
 
 	protected
 	$Page = 1;
@@ -57,8 +57,8 @@ extends Nether\Object\Datastore {
 		return $this;
 	}
 
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
+	////////
+	////////
 
 	protected
 	$Limit = 0;
@@ -75,6 +75,27 @@ extends Nether\Object\Datastore {
 	self {
 
 		$this->Limit = $Value;
+		return $this;
+	}
+
+	////////
+	////////
+
+	protected
+	$Label = '';
+
+	public function
+	Label():
+	String {
+
+		return $this->Label;
+	}
+
+	public function
+	SetLabel(String $Text):
+	self {
+
+		$this->Label = $Text;
 		return $this;
 	}
 

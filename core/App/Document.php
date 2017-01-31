@@ -232,9 +232,12 @@ represents an executive document in our database.
 		// group, validate, and generate options.
 
 		$Opt = new Nether\Object($Opt,[
-			'Sort'  => 'newest',
-			'Limit' => 10,
-			'Page'  => 1
+			'Sort'             => 'newest',
+			'Limit'            => 10,
+			'Page'             => 1,
+			'PublishDateStart' => NULL,
+			'PublishDateEnd'   => NULL,
+			'SignedBy'         => NULL
 		]);
 
 		if(!is_numeric($Opt->Page) || $Opt->Page < 1)
@@ -253,6 +256,16 @@ represents an executive document in our database.
 		if($Opt->Limit) $SQL
 		->Offset($Opt->Offset)
 		->Limit($Opt->Limit);
+
+		////////
+
+		// apply filters.
+
+		if($Opt->PublishDateStart && $Opt->PublishDateEnd) $SQL
+		->Where('doc_date_published BETWEEN CAST(:PublishDateStart AS DATE) AND CAST(:PublishDateEnd AS DATE)');
+
+		if($Opt->SignedBy) $SQL
+		->Where('doc_signed_by LIKE :SignedBy');
 
 		////////
 
