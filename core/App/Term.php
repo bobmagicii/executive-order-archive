@@ -65,12 +65,16 @@ class Term {
 			->Group('PubYear, PubMonth')
 			->Query($Data);
 
-			while($Row = $Result->Next()) {
-				$Output["{$Row->PubYear}-{$Row->PubMonth}"] = (Int)$Row->MonthCount;
-			}
+			$Output[$Label] = [];
+
+			while($Row = $Result->Next())
+			$Output[$Label]["{$Row->PubYear}-{$Row->PubMonth}"] = (Int)$Row->MonthCount;
 		}
 
-		var_dump($Output);
+		echo "<pre>";
+		print_r($Output);
+		echo "</pre>";
+
 		return $Output;
 	}
 

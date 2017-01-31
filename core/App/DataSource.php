@@ -165,15 +165,28 @@ DataSource {
 
 	// abstracts and other methods designed to be overridden.
 
-	protected function
+	public function
 	GetCacheFile():
-	String {
+	?String {
 	/*//
 	@date 2017-01-26
 	return the filename used to store a copy of the data locally. we do this
 	as a method so it can magic dynamic itself without having to do silly
 	things within a constructor for a property. this default implementation
 	disables cache.
+	//*/
+
+		return NULL;
+	}
+
+	public function
+	GetArchiveDir():
+	?String {
+	/*//
+	@date 2017-01-31
+	return the directory path used to store copies of all the urls that this
+	document had for the document. this default implmentation disables the
+	archive process.
 	//*/
 
 		return NULL;

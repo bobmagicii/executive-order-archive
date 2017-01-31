@@ -1,8 +1,9 @@
 <?php
 
 define('ProjectRoot',dirname(__FILE__,2));
-define('WebRoot',sprintf('%s/www',ProjectRoot));
-define('CacheRoot',sprintf('%s/cache',ProjectRoot));
+define('WebRoot',sprintf('%s%swww',ProjectRoot,DIRECTORY_SEPARATOR));
+define('CacheRoot',sprintf('%s%scache',ProjectRoot,DIRECTORY_SEPARATOR));
+define('ArchiveRoot',sprintf('%s%sarchive',ProjectRoot,DIRECTORY_SEPARATOR));
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

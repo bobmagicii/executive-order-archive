@@ -4,6 +4,8 @@ namespace App;
 use \App    as App;
 use \Nether as Nether;
 
+use \Exception as Exception;
+
 class Document
 extends Nether\Object {
 /*//
@@ -72,6 +74,16 @@ represents an executive document in our database.
 		return $this->DocumentID;
 	}
 
+	public function
+	GetDocumentKey():
+	String {
+
+		return str_replace(
+			' ','-',
+			strtolower($this->DocumentID)
+		);
+	}
+
 	////////
 	////////
 
@@ -134,6 +146,19 @@ represents an executive document in our database.
 		return $this->DateSigned;
 	}
 
+	////////
+	////////
+
+	protected
+	$URLs = NULL;
+
+	public function
+	GetURLs():
+	Array {
+
+		return $this->URLs;
+	}
+
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
@@ -141,12 +166,89 @@ represents an executive document in our database.
 	__ready():
 	Void {
 
-		$this->URLs = json_decode($this->JsonDataURLs);
+		$this->URLs = json_decode($this->JsonDataURLs,TRUE);
 
 		if(!is_array($this->URLs))
 		$this->URLs = [];
 
 		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public function
+	Archive(String $Path):
+	self {
+	/*//
+	@date 2017-01-31
+	since trump is signing the "cyber" order today we better provide a means
+	to archive this shit locally.
+	//*/
+
+		$Filename = NULL;
+		$Filetype = 'txt';
+		$IsCLI = (php_sapi_name() === 'cli');
+
+		////////
+
+		if(!file_exists($Path)) {
+			@mkdir($Path,0777,TRUE);
+
+			if(!file_exists($Path))
+			throw new Exception('Unable to create archive directory.');
+		}
+
+		if(!is_writable($Path))
+		throw new Exception('Archive directory not writable.');
+
+		///////
+
+		foreach($this->GetURLs() as $Label => $URL) {
+			$Filetype = strtolower(trim(preg_replace(
+				'/^(.+) ([a-z0-9]{1,4})$/i','$2',
+				$Label
+			)));
+
+			// if you are here debugging this exception then chanced are
+			// you probably made the source class bad. the url keys should
+			// have the same format as the others, something like
+			// "Place It Came From TYPE" e.g. "Federal Register HTML" so
+			// that we can determine .html for the file.
+
+			if(!$Filetype || mb_strlen($Filetype) > 4)
+			throw new Exception('It looks like the file extension code failed to match properly.');
+
+			$Filename = sprintf(
+				'%s%s%s.%s',
+				$Path,
+				DIRECTORY_SEPARATOR,
+				$this->GetDocumentKey(),
+				$Filetype
+			);
+
+			if(file_exists($Filename) && filesize($Filename) > 0) {
+				if($IsCLI) printf(
+					'Already Have %s%s',
+					basename($Filename),
+					PHP_EOL
+				);
+
+				continue;
+			}
+
+			if($IsCLI) printf(
+				'Archiving %s: %s%s',
+				$Label,
+				basename($Filename),
+				PHP_EOL
+			);
+
+			file_put_contents($Filename,file_get_contents($URL));
+			sleep(1);
+		}
+
+		return $this;
 	}
 
 	////////////////////////////////////////////////////////////////

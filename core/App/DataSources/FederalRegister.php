@@ -42,7 +42,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
-	protected function
+	public function
 	GetCacheFile():
 	String {
 	/*//
@@ -50,9 +50,24 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	//*/
 
 		return sprintf(
-			'%s/FederalRegister-%s.txt',
+			'%s%sFederalRegister-%s.txt',
 			CacheRoot,
+			DIRECTORY_SEPARATOR,
 			date('Ymd')
+		);
+	}
+
+	public function
+	GetArchiveDir():
+	?String {
+	/*//
+	@override
+	//*/
+
+		return sprintf(
+			'%s%sFederalRegister',
+			ArchiveRoot,
+			DIRECTORY_SEPARATOR
 		);
 	}
 
@@ -76,21 +91,22 @@ tool: https://www.federalregister.gov/developers/api/v1/
 
 		$Output = [];
 
-		foreach($Data->results as $Result)
-		$Output[] = new App\DataDocument([
-			'CitationID'    => $Result->citation,
-			'DocumentID'    => $Result->document_number,
-			'DocumentType'  => $Result->subtype,
-			'SignedBy'      => $Result->president->identifier,
-			'DatePublished' => $Result->publication_date,
-			'DateSigned'    => $Result->signing_date,
-			'Title'         => $Result->title,
-			'URLs'          => [
-				'Federal Register HTML' => $Result->html_url,
-				'Federal Register JSON' => $Result->json_url,
-				'Federal Register PDF'  => $Result->pdf_url
-			]
-		]);
+		foreach($Data->results as $Result) {
+			$Output[] = new App\DataDocument([
+				'CitationID'    => $Result->citation,
+				'DocumentID'    => $Result->document_number,
+				'DocumentType'  => $Result->subtype,
+				'SignedBy'      => $Result->president->identifier,
+				'DatePublished' => $Result->publication_date,
+				'DateSigned'    => $Result->signing_date,
+				'Title'         => $Result->title,
+				'URLs'          => [
+					'Federal Register HTML' => $Result->html_url,
+					'Federal Register JSON' => $Result->json_url,
+					'Federal Register PDF'  => $Result->pdf_url
+				]
+			]);
+		}
 
 		return $Output;
 	}

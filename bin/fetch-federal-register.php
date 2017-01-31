@@ -28,7 +28,10 @@ extends Nether\Console\Client {
 	HandleRun():
 	Int {
 
+		$Document = NULL;
+		$DataDocument = NULL;
 		$Source = new App\DataSources\FederalRegister;
+
 		$Source->Query();
 
 		////////
@@ -41,8 +44,12 @@ extends Nether\Console\Client {
 
 		////////
 
-		foreach($Source->GetItems() as $Document)
-		$Document->Store();
+		foreach($Source->GetItems() as $DataDocument) {
+			$Document = $DataDocument->Store();
+
+			if(!$this->GetOption('skip-archive'))
+			$Document->Archive($Source->GetArchiveDir());
+		}
 
 		return 0;
 	}
