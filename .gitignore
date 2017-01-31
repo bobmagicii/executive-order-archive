@@ -2,4 +2,5 @@
 /vendor/
 /conf/database.conf.php
 /cache/
+/archive/
 # eof
