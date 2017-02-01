@@ -53,10 +53,28 @@ migrate command and all the tables will be setup in the database automagically.
 You're gonna want data, too. This will hit the public government server to fetch
 all of the available data it can that is relevant to this application. It will
 also cache a copy of the data as they gave it to us in the `cache` directory.
+PDF versions will also end up in the `archive` directory.
+
+To get daily updates, you would want to set this up to cron.
 
 ```
 > php bin\fetch-federal-register.php run
 ```
+
+To get the historical data (which you will want, for the site to be useful) you
+will have to import them president by president. It takes about 2hr per, as I
+have it throttled so that the feds don't think you are cybering them.
+
+```
+> php bin\fetch-federal-register.php president clinton
+> php bin\fetch-federal-register.php president bushjr
+> php bin\fetch-federal-register.php president obama
+> php bin\fetch-federal-register.php president trump
+```
+
+These are the presidents the Federal Register has exposed as something queryable
+with their API, and it was more than enough to do its job for anyone with modern
+memories.
 
 ## Test HTTP Server
 
