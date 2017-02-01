@@ -9,36 +9,43 @@ class Term {
 	static
 	$List = [
 		'Clinton Term 1' => [
+			'Term'     => 1,
 			'Start'    => '1993-01-20',
 			'End'      => '1997-01-19',
-			'SignedBy' => 'william-clinton'
+			'SignedBy' => 'william-j-clinton'
 		],
 		'Clinton Term 2' => [
+			'Term'     => 2,
 			'Start'    => '1997-01-20',
 			'End'      => '2001-01-19',
-			'SignedBy' => 'william-clinton'
+			'SignedBy' => 'william-j-clinton'
 		],
 		'Bush Jr. Term 1' => [
+			'Term'     => 1,
 			'Start'    => '2001-01-20',
 			'End'      => '2005-01-19',
 			'SignedBy' => 'george-w-bush'
 		],
 		'Bush Jr. Term 2' => [
+			'Term'     => 2,
 			'Start'    => '2005-01-20',
 			'End'      => '2009-01-19',
 			'SignedBy' => 'george-w-bush'
 		],
 		'Obama Term 1' => [
+			'Term'     => 1,
 			'Start'    => '2009-01-20',
 			'End'      => '2013-01-19',
 			'SignedBy' => 'barack-obama'
 		],
 		'Obama Term 2' => [
+			'Term'     => 2,
 			'Start'    => '2013-01-20',
 			'End'      => '2017-01-19',
 			'SignedBy' => 'barack-obama'
 		],
 		'Trump Term 1' => [
+			'Term'     => 1,
 			'Start'    => '2017-01-20',
 			'End'      => '2021-01-19',
 			'SignedBy' => 'donald-trump'
@@ -50,6 +57,21 @@ class Term {
 	Array {
 
 		$Output = [];
+		$Result = NULL;
+		$SQL = Nether\Database::Get()->NewVerse();
+
+		$Result = $SQL
+		->Select('Documents')
+		->Fields([
+			'doc_signed_by AS Who',
+			'COUNT(*) AS TotalCount'
+		])
+		->Sort('TotalCount')
+		->Group('doc_signed_by')
+		->Query();
+
+		while($Row = $Result->Next())
+		$Output[$Row->Who] = $Row->TotalCount;
 
 		return $Output;
 	}
@@ -83,9 +105,9 @@ class Term {
 			$Output[$Label]["{$Row->PubYear}-{$Row->PubMonth}"] = (Int)$Row->MonthCount;
 		}
 
-		echo "<pre>";
-		print_r($Output);
-		echo "</pre>";
+		//echo "<pre>";
+		//print_r($Output);
+		//echo "</pre>";
 
 		return $Output;
 	}

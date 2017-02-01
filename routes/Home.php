@@ -23,6 +23,7 @@ extends App\Site\RoutePublicWeb {
 	Void {
 
 		$TermData = App\Term::GetMonthlySummary();
+		$PresidentSummary = App\Term::GetPresidentSummary();
 
 		$Recent = App\Document::Search([
 			'Sort'  => 'newest',
@@ -32,6 +33,7 @@ extends App\Site\RoutePublicWeb {
 
 		////////
 
+		$this->Surface->Set('PresidentSummary',$PresidentSummary);
 		$this->Surface->Set('TermData',$TermData);
 		$this->Surface->Set('RecentDocuments',$Recent);
 		$this->Surface->Area('home/chart-primary');
