@@ -205,10 +205,18 @@ represents an executive document in our database.
 		///////
 
 		foreach($this->GetURLs() as $Label => $URL) {
+			if(!$URL) {
+				// a lot of clinton's documents seem to be missing.
+				// some of them are attributed wrong too by the api.
+				// probably have to skip clinton for now.
+				continue;
+			}
+
 			$Filetype = strtolower(trim(preg_replace(
 				'/^(.+) ([a-z0-9]{1,4})$/i','$2',
 				$Label
 			)));
+
 
 			// if you are here debugging this exception then chanced are
 			// you probably made the source class bad. the url keys should
@@ -307,6 +315,38 @@ represents an executive document in our database.
 
 		if(!$Result->IsOK())
 		throw new Exception('Document::GetByCitationID() critical failure.');
+
+		if(!$Result->GetCount())
+		return NULL;
+
+		////////
+
+		return new self($Result->Next());
+	}
+
+
+	public static function
+	GetByDocumentID(String $DocumentID):
+	?self {
+
+		$SQL = Nether\Database::Get()->NewVerse();
+		$Result = NULL;
+
+		////////
+
+		$Result = $SQL
+		->Select('Documents')
+		->Fields('*')
+		->Where('doc_document_id=:DocumentID')
+		->Limit(1)
+		->Query([
+			'DocumentID' => $DocumentID
+		]);
+
+		////////
+
+		if(!$Result->IsOK())
+		throw new Exception('Document::GetByDocumentID() critical failure.');
 
 		if(!$Result->GetCount())
 		return NULL;
@@ -436,8 +476,12 @@ represents an executive document in our database.
 			'URLs'          => []
 		]);
 
-		if(!$Opt->CitationID)
-		throw new Exception('Documents must have a CitationID');
+		if(mb_strlen($Opt->Title) > 512)
+		$Opt->Title = mb_substr($Opt->Title,0,512);
+
+		if(!$Opt->DocumentID) {
+			throw new Exception('Documents must have a DocumentID');
+		}
 
 		if(!is_array($Opt->URLs))
 		throw new Exception('URLs must be an array.');
@@ -452,7 +496,7 @@ represents an executive document in our database.
 		// @todo - if found, check urls array to make sure we didnt just
 		// add new ones to the document. moar sauces!
 
-		$Old = self::GetByCitationID($Opt->CitationID);
+		$Old = self::GetByDocumentID($Opt->DocumentID);
 		if($Old) return $Old;
 
 		////////
