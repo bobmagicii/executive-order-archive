@@ -15,9 +15,25 @@ extends Nether\Console\Client {
 
 		$this::Messages(
 			'',
-			'USAGE: fetch-federal-register run',
+			'USAGE: fetch-federal-register <cmd>',
 			'',
-			'Fetches the data from the federal register for today.',
+			'run <options>',
+			'',
+			'    Fetches the most recent documents. Consider using this for a daily cron.',
+			'',
+			'    --skip-archive',
+			'',
+			'        Do not download the documents locally. Just populate the database.',
+			'',
+			'president <who> <options>',
+			'',
+			'    Fetch the entire presidential document history for the specified president. Currently valid choices:',
+			'',
+			'    clinton, bushjr, obama, trump',
+			'',
+			'      --skip-archive',
+			'',
+			'      Do not download the documents locally. Just populate the database.',
 			''
 		);
 
@@ -33,24 +49,37 @@ extends Nether\Console\Client {
 		$Source = NULL;
 
 		switch($this->GetInput(2)) {
+			case 'william-j-clinton':
+			case 'clinton': {
+				$Source = new App\DataSources\FederalRegister\BillClinton;
+				break;
+			}
+			case 'george-w-bush':
+			case 'bushjr': {
+				$Source = new App\DataSources\FederalRegister\GeorgeBushJr;
+				break;
+			}
+			case 'barack-obama':
 			case 'obama': {
 				$Source = new App\DataSources\FederalRegister\BarackObama;
 				break;
 			}
-
+			case 'donald-trump':
 			case 'trump': {
 				$Source = new App\DataSources\FederalRegister\DonaldTrump;
 				break;
 			}
-
 			default: {
 				$this::Messages(
+					'',
 					'no valid president found.',
-					' - obama',
-					' - trump'
+					' - clinton or william-j-clinton',
+					' - bushjr or george-w-bush',
+					' - obama or barack-obama',
+					' - trump or donald-trump',
+					''
 				);
 				return 0;
-				break;
 			}
 		}
 

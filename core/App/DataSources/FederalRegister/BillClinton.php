@@ -4,7 +4,7 @@ namespace App\DataSources\FederalRegister;
 use \App    as App;
 use \Nether as Nether;
 
-class DonaldTrump
+class BillClinton
 extends App\DataSources\FederalRegister\PresidentHistory {
 /*//
 @date 2017-01-25
@@ -13,7 +13,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 //*/
 
 	protected
-	$FileKey = 'DonaldTrump';
+	$FileKey = 'BillClinton';
 
 	protected
 	$URL = 'https://www.federalregister.gov/api/v1/documents.json'.
@@ -41,6 +41,6 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=notice'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order'.
-	'&conditions%5Bpresident%5D%5B%5D=donald-trump';
+	'&conditions%5Bpresident%5D%5B%5D=william-j-clinton';
 
 }

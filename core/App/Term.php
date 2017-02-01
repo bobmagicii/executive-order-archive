@@ -46,6 +46,15 @@ class Term {
 	];
 
 	static public function
+	GetPresidentSummary():
+	Array {
+
+		$Output = [];
+
+		return $Output;
+	}
+
+	static public function
 	GetMonthlySummary():
 	Array {
 

@@ -13,6 +13,9 @@ tool: https://www.federalregister.gov/developers/api/v1/
 //*/
 
 	protected
+	$FileKey = 'BarackObama';
+
+	protected
 	$URL = 'https://www.federalregister.gov/api/v1/documents.json'.
 	'?fields%5B%5D=body_html_url'.
 	'&fields%5B%5D=citation'.
@@ -39,39 +42,5 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order'.
 	'&conditions%5Bpresident%5D%5B%5D=barack-obama';
-
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
-
-	public function
-	GetCacheFile():
-	String {
-	/*//
-	@override
-	//*/
-
-		return sprintf(
-			'%s%sFederalRegister-BarackObama-%s-%d.txt',
-			CacheRoot,
-			DIRECTORY_SEPARATOR,
-			date('Ymd'),
-			$this->Page
-		);
-	}
-
-	public function
-	GetArchiveDir():
-	?String {
-	/*//
-	@override
-	//*/
-
-		return sprintf(
-			'%s%sFederalRegister%sBarackObama',
-			ArchiveRoot,
-			DIRECTORY_SEPARATOR,
-			DIRECTORY_SEPARATOR
-		);
-	}
 
 }

@@ -43,7 +43,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 
 	public function
 	GetCacheFile():
-	String {
+	?String {
 	/*//
 	@override
 	//*/

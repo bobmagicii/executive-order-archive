@@ -13,6 +13,9 @@ extends App\DataSources\FederalRegister {
 	protected
 	$PageCount = 1;
 
+	protected
+	$FileKey = 'Unnamed';
+
 	public function
 	Query():
 	App\DataSource {
@@ -36,6 +39,39 @@ extends App\DataSources\FederalRegister {
 		}
 
 		return $this;
+	}
+
+	public function
+	GetCacheFile():
+	?String {
+	/*//
+	@override
+	//*/
+
+		return sprintf(
+			'%s%sFederalRegister-%s-%s-%d.txt',
+			CacheRoot,
+			DIRECTORY_SEPARATOR,
+			$this->FileKey,
+			date('Ymd'),
+			$this->Page
+		);
+	}
+
+	public function
+	GetArchiveDir():
+	?String {
+	/*//
+	@override
+	//*/
+
+		return sprintf(
+			'%s%sFederalRegister%s%s',
+			ArchiveRoot,
+			DIRECTORY_SEPARATOR,
+			DIRECTORY_SEPARATOR,
+			$this->FileKey
+		);
 	}
 
 }
