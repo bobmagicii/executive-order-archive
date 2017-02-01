@@ -4,6 +4,9 @@ namespace App;
 use \App    as App;
 use \Nether as Nether;
 
+use \DateTime     as DateTime;
+use \DateInterval as DateInterval;
+
 class Term {
 
 	static
@@ -80,29 +83,54 @@ class Term {
 	GetMonthlySummary():
 	Array {
 
+		$Iter; $Start; $End;
+		$Label; $Data;
+
 		$Output = [];
 		$Result = NULL;
-		$SQL = Nether\Database::Get()->NewVerse();
+		$SQL= Nether\Database::Get()->NewVerse();
+
+		////////
 
 		foreach(self::$List as $Label => $Data) {
+
+			// prepare a dataset in the event one of them managed to go
+			// an entire month without signing something. also future
+			// proof it in the event we have data for a president who did
+			// not serve a full term lol.
+
+			$Output[$Label] = [];
+			$Start = new DateTime($Data['Start']);
+			$End = new DateTime($Data['End']);
+			$Iter = 0;
+
+			do {
+				if($Iter > 0)
+				$Start->Add(new DateInterval("P1M"));
+
+				$Output[$Label][$Start->Format('Y-m')] = 0;
+
+				$Iter++;
+			} while($Start < $End && $Iter <= (12*24));
+
+			// now find their actual data and fill it in overwriting the
+			// blank set we created.
+
 			$Result = $SQL
 			->Select('Documents')
 			->Fields([
 				'COUNT(*) AS MonthCount',
-				'YEAR(doc_date_published) PubYear',
-				'MONTH(doc_date_published) PubMonth'
+				'DATE_FORMAT(doc_date_published,"%Y-%m") PubKey'
 			])
 			->Where([
 				'doc_signed_by LIKE :SignedBy',
 				'doc_date_published BETWEEN :Start AND :End'
 			])
-			->Group('PubYear, PubMonth')
+			->Group('PubKey')
 			->Query($Data);
 
-			$Output[$Label] = [];
-
 			while($Row = $Result->Next())
-			$Output[$Label]["{$Row->PubYear}-{$Row->PubMonth}"] = (Int)$Row->MonthCount;
+			$Output[$Label][$Row->PubKey] = (Int)$Row->MonthCount;
 		}
 
 		//echo "<pre>";
