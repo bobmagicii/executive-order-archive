@@ -90,7 +90,8 @@ class Term {
 	GetMonthlySummary():
 	Array {
 
-		$Iter; $Start; $End;
+		$Iter;
+		$Start; $End;
 		$Label; $Data;
 
 		$Output = [];
@@ -139,6 +140,22 @@ class Term {
 			while($Row = $Result->Next())
 			$Output[$Label][$Row->PubKey] = (Int)$Row->MonthCount;
 		}
+
+		// on the current term cut off any months which have not happened
+		// yet.
+
+		end($Output);
+		$Label = key($Output);
+		$End = new DateTime;
+
+		foreach(array_keys(end($Output)) as $Key) {
+			$Start = new DateTime("{$Key}-01");
+
+			if($Start > $End)
+			unset($Output[$Label][$Key]);
+		}
+
+		reset($Output);
 
 		//echo "<pre>";
 		//print_r($Output);
