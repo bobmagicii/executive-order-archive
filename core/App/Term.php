@@ -15,43 +15,50 @@ class Term {
 			'Term'     => 1,
 			'Start'    => '1993-01-20',
 			'End'      => '1997-01-19',
-			'SignedBy' => 'william-j-clinton'
+			'SignedBy' => 'william-j-clinton',
+			'LineColour' => '#0660A9'
 		],
 		'Clinton Term 2' => [
 			'Term'     => 2,
 			'Start'    => '1997-01-20',
 			'End'      => '2001-01-19',
-			'SignedBy' => 'william-j-clinton'
+			'SignedBy' => 'william-j-clinton',
+			'LineColour' => '#348DC7'
 		],
 		'Bush Jr. Term 1' => [
 			'Term'     => 1,
 			'Start'    => '2001-01-20',
 			'End'      => '2005-01-19',
-			'SignedBy' => 'george-w-bush'
+			'SignedBy' => 'george-w-bush',
+			'LineColour' => '#ED1C23'
 		],
 		'Bush Jr. Term 2' => [
 			'Term'     => 2,
 			'Start'    => '2005-01-20',
 			'End'      => '2009-01-19',
-			'SignedBy' => 'george-w-bush'
+			'SignedBy' => 'george-w-bush',
+			'LineColour' => '#E7454B'
 		],
 		'Obama Term 1' => [
 			'Term'     => 1,
 			'Start'    => '2009-01-20',
 			'End'      => '2013-01-19',
-			'SignedBy' => 'barack-obama'
+			'SignedBy' => 'barack-obama',
+			'LineColour' => '#F0F0F0'
 		],
 		'Obama Term 2' => [
 			'Term'     => 2,
 			'Start'    => '2013-01-20',
 			'End'      => '2017-01-19',
-			'SignedBy' => 'barack-obama'
+			'SignedBy' => 'barack-obama',
+			'LineColour' => '#B0B0B0'
 		],
 		'Trump Term 1' => [
 			'Term'     => 1,
 			'Start'    => '2017-01-20',
 			'End'      => '2021-01-19',
-			'SignedBy' => 'donald-trump'
+			'SignedBy' => 'donald-trump',
+			'LineColour' => '#DDAD65'
 		]
 	];
 
@@ -120,11 +127,11 @@ class Term {
 			->Select('Documents')
 			->Fields([
 				'COUNT(*) AS MonthCount',
-				'DATE_FORMAT(doc_date_published,"%Y-%m") PubKey'
+				'DATE_FORMAT(doc_date_signed,"%Y-%m") PubKey'
 			])
 			->Where([
 				'doc_signed_by LIKE :SignedBy',
-				'doc_date_published BETWEEN :Start AND :End'
+				'doc_date_signed BETWEEN :Start AND :End'
 			])
 			->Group('PubKey')
 			->Query($Data);

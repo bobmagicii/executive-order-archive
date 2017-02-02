@@ -174,7 +174,32 @@ td.Title div {
 	background-repeat: no-repeat;
 	background-position: top center;
 	box-shadow: 0px 0px 24px #000 inset;
-	height: 500px;
+}
+
+.ChartTermOverTimeLegend {
+	text-align: center;
+}
+
+.ChartTermOverTimelegend
+> ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.ChartTermOverTimeLegend
+> ul li {
+	display: inline-block;
+}
+
+.ChartTermOverTimeLegend
+> ul li a {
+	box-shadow: 0px 0px 5px #000;
+	background: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 3px;
+	padding: 4px 2px;
 }
 
 /*// App Site Element styles ///////////////////////////////////////////////////

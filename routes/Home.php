@@ -33,8 +33,8 @@ extends App\Site\RoutePublicWeb {
 
 		////////
 
-		$this->Surface->Set('PresidentSummary',$PresidentSummary);
-		$this->Surface->Set('TermData',$TermData);
+		$this->Surface->Set('Home.PresidentSummary',$PresidentSummary);
+		$this->Surface->Set('Home.TermSummary',$TermData);
 		$this->Surface->Set('RecentDocuments',$Recent);
 		$this->Surface->Area('home/chart-primary');
 		$this->Surface->Area('home/orders-recent');
