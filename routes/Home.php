@@ -36,7 +36,10 @@ extends App\Site\RoutePublicWeb {
 		$this->Surface->Set('Home.PresidentSummary',$PresidentSummary);
 		$this->Surface->Set('Home.TermSummary',$TermData);
 		$this->Surface->Set('RecentDocuments',$Recent);
+
+		if($this->Get->Page === 1)
 		$this->Surface->Area('home/chart-primary');
+
 		$this->Surface->Area('home/orders-recent');
 		return;
 	}
