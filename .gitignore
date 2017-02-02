@@ -1,6 +1,7 @@
 # bof
 /vendor/
 /conf/database.conf.php
+/conf/apache.conf
 /cache/
 /archive/
 # eof
