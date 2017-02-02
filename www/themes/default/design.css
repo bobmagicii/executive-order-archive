@@ -4,6 +4,7 @@
 * {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-weight: 300;
+	box-sizing: border-box;
 }
 
 html, body {
@@ -48,7 +49,10 @@ p:last-child {
 	margin-bottom: 0px;
 }
 
-
+legend {
+	font-size: 1.2em;
+	font-weight: 300;
+}
 
 /*// generic local overrides ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
@@ -58,6 +62,11 @@ p:last-child {
 .PaddingVerticalNormal { padding-top: 32px !important; padding-bottom: 32px !important; }
 .PaddingVerticalSpaaace { padding-top: 64px !important; padding-bottom: 64px !important; }
 
+.MarginLineNone { margin-bottom: 0px !important; }
+.MarginLineBarely { margin-bottom: 16px !important; }
+.MarginLineNormal { margin-bottom: 32px !important; }
+.MarginLineSpaaace { margin-bottom: 64px !important; }
+
 .TextColourRed { color: #B42F30 !important; }
 .TextAlignCenter { text-align: center !important; }
 .TextAlignRight { text-align: right !important; }
@@ -65,6 +74,13 @@ p:last-child {
 .FloatClear { border: 0px; clear: both; float: none; margin: 0px; padding: 0px; }
 .FloatLeft { float: left; }
 .FloatRight { float: right; }
+
+.WidthThird { width: 33.332%; margin: 0px; }
+.WidthHalf { width: 50%; margin: 0px; }
+.WidthFull { width: 100%; margin: 0px; }
+
+.WidthHalf.WidthPadded:nth-child(2n+1) { padding-right: 16px; }
+.WidthHalf.WidthPadded:nth-child(2n) { padding-left: 16px; }
 
 /*// primary page structures ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
@@ -183,29 +199,33 @@ td.Title div {
 }
 
 .ChartTermOverTimeLegend {
-	text-align: center;
+
 }
 
-.ChartTermOverTimelegend
-> ul {
+.ChartTermOverTimeLegend
+ul {
 	list-style-type: none;
 	margin: 0px;
+	padding: 16px;
+}
+
+.ChartTermOverTimeLegend
+ul li {
+	display: inline-block;
+	margin: 0px 0px 10px 0px;
 	padding: 0px;
 }
 
 .ChartTermOverTimeLegend
-> ul li {
-	display: inline-block;
-}
-
-.ChartTermOverTimeLegend
-> ul li a {
+ul li a {
 	box-shadow: 0px 0px 5px #000;
 	background: rgba(0,0,0,0.5);
 	border-radius: 3px;
 	border-style: solid;
 	border-width: 3px;
-	padding: 4px 2px;
+	display: block;
+	margin: 0px;
+	padding: 4px;
 }
 
 /*// App Site Element styles ///////////////////////////////////////////////////

@@ -13,7 +13,12 @@
 
 	<style type="text/css">
 <?php foreach(App\Term::$List as $Label => $TermInfo): ?>
-		g.dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?> {
+		.ct-chart-line .dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?> {
+			stroke: <?php echo $TermInfo['LineColour'] ?>;
+		}
+		.ct-chart-pie .dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?>,
+		.ct-chart-donut .dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?> {
+			fill: <?php echo $TermInfo['LineColour'] ?>;
 			stroke: <?php echo $TermInfo['LineColour'] ?>;
 		}
 		li.dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?>,

@@ -1,7 +1,10 @@
 <?php
 
 $TermSummary = $surface->Get('Home.TermSummary');
+$PresidentSummary = $surface->Get('Home.PresidentSummary');
 $LineSeriesData = [];
+$PieSeriesData = [];
+$PieSeriesSum = 0;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,50 +18,112 @@ foreach(App\Term::$List as $Label => $TermInfo) {
 	];
 }
 
+foreach($PresidentSummary as $Label => $Value) {
+	$PieSeriesData[] = [
+		'value' => (Int)$Value,
+		'name' => 'name',
+		'className' => "ct-series dataset-{$Label}-1",
+		'meta' => 'meta'
+	];
+
+	$PieSeriesSum += (Int)$Value;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 ?>
 
 <div class="Contain Promo AmericaFuckYeah"><div style="">
-	<div class="ChartTermOverTime" style="width:100%;height:300px;"></div>
-	<div class="ChartTermOverTimeLegend">
-		<ul>
+	<legend class="TextAlignCenter">Documents Per Month Per Term</legend><hr />
+	<div class="ChartTermOverTime MarginLineNormal" style="height:300px;background:rgba(0,0,0,0.5);"></div>
+	<div>
+		<div class="FloatLeft WidthHalf WidthPadded">
+			<legend class="TextAlignCenter">Legend</legend><hr />
+			<div class="ChartTermOverTimeLegend" style="height:300px;background:rgba(0,0,0,0.5);">
+				<ul>
 <?php foreach(App\Term::$List as $Label => $TermInfo): ?>
-			<li class="dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?>"><a href=""><?php echo $Label ?></a></li>
+					<li class="FloatLeft WidthHalf WidthPadded dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?>"><a href=""><?php echo $Label ?></a></li>
 <?php endforeach; ?>
-		</ul>
+				</ul>
+			</div>
+		</div>
+		<div class="FloatRight WidthHalf WidthPadded">
+			<legend class="TextAlignCenter">Total Document Share</legend><hr />
+			<div class="ChartTermSummary" style="height:300px;background:rgba(0,0,0,0.5);"></div>
+		</div>
+		<hr class="FloatClear" />
 	</div>
+
+
 </div></div>
 
 <style type="text/css">
-.ct-label { color: #fff; text-align: left !important; text-anchor: start !important; }
+.ct-chart-line .ct-label { color: #fff; }
+.ct-chart-pie .ct-label { color: #000; text-shadow: 0px 0px 3px #000; }
 .ct-grid { stroke: #666; }
 </style>
 
 <script type="text/javascript">
-var Dataset = {
-	labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-	series: <?php echo json_encode($LineSeriesData) ?>
-};
+function RenderLineChart() {
+	var Dataset = {
+		series: <?php echo json_encode($LineSeriesData) ?>
+	};
 
-var Options = {
-	showArea: false,
-	showLine: true,
-	showPoint: true,
-	fullWidth: true,
-	axisY: {
-		onlyInteger: true,
-	},
-	axisX: {
-		showLabel: true,
-		showGrid: false
-	}
-};
+	var Options = {
+		showArea: false,
+		showLine: true,
+		showPoint: true,
+		fullWidth: true,
+		axisY: {
+			onlyInteger: true,
+		},
+		axisX: {
+			showLabel: true,
+			showGrid: false
+		},
+		chartPadding: {
+			top: 16,
+			right: 16,
+			bottom: 0,
+			left: 0
+		}
+	};
 
-new Chartist.Line(
-	'.ChartTermOverTime',
-	Dataset,
-	Options
-);
+	new Chartist.Line(
+		'.ChartTermOverTime',
+		Dataset,
+		Options
+	);
+}
+
+function RenderPieChart() {
+
+	var Dataset = {
+
+		series: <?php echo json_encode($PieSeriesData) ?>,
+		sum: <?php echo json_encode($PieSeriesSum) ?>
+	};
+
+	var Options = {
+		labelInterpolationFnc: function(value) {
+			return value + ' (' + Math.round(value / Dataset.sum * 100) + '%)';
+		},
+		labelOffset: 50,
+		labelPosition: 'inside',
+		labelDirection: 'implode',
+		donut: false,
+		donutWidth: 64,
+		chartPadding: 16
+	};
+
+	new Chartist.Pie(
+		'.ChartTermSummary',
+		Dataset,
+		Options
+	);
+}
+
+RenderLineChart();
+RenderPieChart();
 </script>
