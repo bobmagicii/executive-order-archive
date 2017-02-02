@@ -3,6 +3,8 @@
 A little site to display how many orders per day Trump is signing without any
 checks and balances.
 
+Public Accessible Version: http://pda.opsat.net
+
 None of the data sources I have found so far actually update daily, but it will
 be good enough.
 
