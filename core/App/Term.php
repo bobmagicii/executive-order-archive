@@ -144,22 +144,18 @@ class Term {
 		// on the current term cut off any months which have not happened
 		// yet.
 
-		end($Output);
-		$Label = key($Output);
+		$Label = end(array_keys($Output));
 		$End = new DateTime;
 
-		foreach(array_keys(end($Output)) as $Key) {
-			$Start = new DateTime("{$Key}-01");
+		// @johnkary senpai notice me
 
-			if($Start > $End)
-			unset($Output[$Label][$Key]);
-		}
-
-		reset($Output);
-
-		//echo "<pre>";
-		//print_r($Output);
-		//echo "</pre>";
+		$Output[$Label] = array_filter(
+			$Output[$Label],
+			function($Key) use($End) {
+				return (new DateTime("{$Key}-01") <= $End);
+			},
+			ARRAY_FILTER_USE_KEY
+		);
 
 		return $Output;
 	}
