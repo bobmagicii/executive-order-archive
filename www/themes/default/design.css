@@ -35,6 +35,11 @@ h1,h2,h3,h4 {
 	padding: 0px;
 }
 
+hr {
+	border: 0px;
+	border-bottom: 1px solid #444;
+}
+
 p {
 	margin: 0px 0px 16px 0px;
 }
@@ -55,6 +60,7 @@ p:last-child {
 
 .TextColourRed { color: #B42F30 !important; }
 .TextAlignCenter { text-align: center !important; }
+.TextAlignRight { text-align: right !important; }
 
 .FloatClear { border: 0px; clear: both; float: none; margin: 0px; padding: 0px; }
 .FloatLeft { float: left; }
