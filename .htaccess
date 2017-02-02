@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+
+# keep legit requests.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule . - [L]
+
+# run everything else through the router.
+RewriteRule . index.php [L]
