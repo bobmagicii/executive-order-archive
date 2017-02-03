@@ -100,6 +100,9 @@ represents an executive document in our database.
 	////////
 	////////
 
+	protected
+	$SignedBy = '';
+
 	public function
 	GetSignedBy():
 	String {
@@ -148,6 +151,9 @@ represents an executive document in our database.
 
 	////////
 	////////
+
+	protected
+	$JsonDataURLs = NULL;
 
 	protected
 	$URLs = NULL;

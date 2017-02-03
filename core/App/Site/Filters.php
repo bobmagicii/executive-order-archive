@@ -25,4 +25,29 @@ before attempting to use.
 		return (Int)$Val;
 	}
 
+	public static function
+	DocumentID($Val):
+	String {
+	/*//
+	document and citation id input is subject to extreme vetting.
+	//*/
+
+		return preg_replace(
+			'/[^a-z0-9-]+/', '',
+			strtolower($Val)
+		);
+	}
+
+	public static function
+	DomainFromURL(String $URL):
+	String {
+
+		$Domain = parse_url($URL,PHP_URL_HOST);
+
+		if(!$Domain)
+		return 'Error Parsing URL.';
+
+		return $Domain;
+	}
+
 }

@@ -1,0 +1,46 @@
+<?php
+
+$Document = $surface->Get('App.Document');
+
+?>
+
+<div class="Contain Promo AmericaFuckYeah"><div>
+	<h2><?php echo htmlentities($Document->GetTitle()) ?></h2>
+	<h3>
+		Signed by <a href="#" style="FontWeightBold"><?php echo htmlentities($Document->GetSignedBy()) ?></a>
+		on <a href="#" style="FontWeightBold"><?php echo htmlentities($Document->GetDateSigned()) ?></a>
+	</h3>
+</div></div>
+<div class="Contain"><div>
+	<table class="WidthFull">
+		<thead>
+			<tr>
+				<th class="TextAlignCenter TextWeightBold">Document Type</th>
+				<th class="TextAlignCenter TextWeightBold">Date Signed</th>
+				<th class="TextAlignCenter TextWeightBold">Date Published</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="TextAlignCenter"><?php echo htmlentities($Document->GetDocumentType()) ?></td>
+				<td class="TextAlignCenter"><?php echo htmlentities($Document->GetDateSigned()) ?></td>
+				<td class="TextAlignCenter"><?php echo htmlentities($Document->GetDatePublished()) ?></td>
+			</tr>
+		</tbody>
+	</table>
+</div></div>
+<div class="Contain"><div>
+	<legend>Source Documents:</legend>
+	<ul>
+<?php foreach($Document->GetURLS() as $Label => $URL): ?>
+		<li><a href="<?php echo $URL ?>" target="_blank"><?php echo $Label ?> (<?php echo App\Site\Filters::DomainFromURL($URL) ?>)</a></li>
+<?php endforeach; ?>
+	</ul>
+</div></div>
+<div class="Contain"><div>
+	<p>@TODO</p>
+	<p>find a way to get summary text. maybe full text. maybe directly
+	embed the pdf from my local archive?</p>
+
+	<!-- <object data="url"></object> -->
+</div></div>

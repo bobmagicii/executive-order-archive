@@ -8,11 +8,22 @@ class Document
 extends App\Site\RoutePublicWeb {
 
 	public function
-	Index($CitationID):
+	OnConstruct():
 	Void {
 
-		$this->Surface->Set('Message',"Pull Document {$CitationID}");
-		$this->Surface->Area('error/coming-soon');
+		return;
+	}
+
+	public function
+	Index($DocumentID):
+	Void {
+
+		$Document = App\Document::GetByDocumentID(
+			App\Site\Filters::DocumentID($DocumentID)
+		);
+
+		$this->Surface->Set('App.Document',$Document);
+		$this->Surface->Area('doc/view');
 		return;
 	}
 

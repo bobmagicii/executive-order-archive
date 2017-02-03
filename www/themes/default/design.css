@@ -70,6 +70,9 @@ legend {
 .TextColourRed { color: #B42F30 !important; }
 .TextAlignCenter { text-align: center !important; }
 .TextAlignRight { text-align: right !important; }
+.TextWeightBold { font-weight: 500 !important; }
+.TextWeightLight { font-weight: 300 !important; }
+.TextWeightNormal { font-weight: normal !important; }
 
 .FloatClear { border: 0px; clear: both; float: none; margin: 0px; padding: 0px; }
 .FloatLeft { float: left; }
