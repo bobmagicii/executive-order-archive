@@ -13,7 +13,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 //*/
 
 	protected
-	$FileKey = 'BillClinton';
+	$FileKey = 'william-j-clinton';
 
 	protected
 	$URL = 'https://www.federalregister.gov/api/v1/documents.json'.

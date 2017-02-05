@@ -13,7 +13,7 @@ tool: https://www.federalregister.gov/developers/api/v1/
 //*/
 
 	protected
-	$FileKey = 'DonaldTrump';
+	$FileKey = 'donald-trump';
 
 	protected
 	$URL = 'https://www.federalregister.gov/api/v1/documents.json'.
