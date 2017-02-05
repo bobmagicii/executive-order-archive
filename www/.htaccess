@@ -1,6 +1,9 @@
 RewriteEngine On
 RewriteBase /
 
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R,L]
+
 # keep legit requests.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
