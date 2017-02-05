@@ -36,7 +36,8 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=memorandum'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=notice'.
 	'&conditions%5Bpresidential_document_type%5D%5B%5D=proclamation'.
-	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order';
+	'&conditions%5Bpresidential_document_type%5D%5B%5D=presidential_order'.
+	'&conditions%5Bpresident%5D%5B%5D=donald-trump';
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -64,8 +65,9 @@ tool: https://www.federalregister.gov/developers/api/v1/
 	//*/
 
 		return sprintf(
-			'%s%sFederalRegister',
+			'%s%sFederalRegister%sdonald-trump',
 			ArchiveRoot,
+			DIRECTORY_SEPARATOR,
 			DIRECTORY_SEPARATOR
 		);
 	}
