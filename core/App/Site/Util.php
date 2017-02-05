@@ -24,7 +24,7 @@ class Util {
 
 		////////
 
-		return date('Y-m-d',$Time);
+		return date('Y-m-d g:ia T',$Time);
 	}
 
 }

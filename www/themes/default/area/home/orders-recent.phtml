@@ -32,7 +32,7 @@ App\Site\Element {
 		<tr>
 			<td class="Title">
 				<a href="/doc/<?php echo $Doc->GetDocumentKey() ?>"><?php echo $Doc->GetTitle() ?></a>
-				<div>Signed By: <?php echo $Doc->GetSignedBy() ?></div>
+				<div>Signed By: <?php echo $Doc->GetSignedName() ?></div>
 			</td>
 			<td class="Type"><?php echo $Doc->GetDocumentType() ?></td>
 			<td class="DateSigned Date"><?php echo $Doc->GetDateSigned() ?></td>

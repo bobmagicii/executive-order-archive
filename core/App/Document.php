@@ -93,6 +93,10 @@ represents an executive document in our database.
 	public function
 	GetDocumentType():
 	String {
+	/*//
+	presidental documents come in multiple flavours, some of them have more
+	power than others. get what kind this is.
+	//*/
 
 		return $this->DocumentType;
 	}
@@ -106,8 +110,40 @@ represents an executive document in our database.
 	public function
 	GetSignedBy():
 	String {
+	/*//
+	get the key of who signed it. the keys i allowed the federal register to
+	define, so they are generally lowercase with spaces replaced with dashes.
+	//*/
 
 		return $this->SignedBy;
+	}
+
+	public function
+	GetSignedName():
+	String {
+	/*//
+	get the readable name of who signed it.
+	the contents of this method will probably be replaced in the future with
+	a join to a presidents table or something.
+	//*/
+
+		$Key = $this->GetSignedBy();
+
+		switch($Key) {
+			case 'william-j-clinton':
+			return 'Bill Clinton';
+
+			case 'george-w-bush':
+			return 'George Bush Jr';
+
+			case 'barack-obama':
+			return 'Barack Obama';
+
+			case 'donald-trump':
+			return 'Donald Trump';
+		}
+
+		return $Key;
 	}
 
 	////////

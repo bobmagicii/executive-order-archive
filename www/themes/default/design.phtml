@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title><?php $surface->Show('page-title') ?></title>
+	<link rel="icon" href="/favicon.png" type="image/png">
+	<link rel="shortcut icon" href="/favicon.png" type="image/png">
 
 	<!-- scripting -->
 	<script type="text/javascript" src="/share/other/dist/scripts.js"></script>
@@ -34,10 +36,14 @@
 
 <header>
 	<div class="Contain"><div>
-		<div class="">
+		<div class="FloatLeft">
 			<h1><a href="/"><i class="TextColourRed fa fa-bank"></i> PDA</h1></a>
 			<p>Presidential Document Archive</p>
 		</div>
+		<div class="FloatRight TextWeightBold">
+			<span class="TextColourRed TextWeightBold">Last Fetch:</span> <?php echo App\Site\Util::GetFetchDate() ?>
+		</div>
+		<hr class="FloatClear" />
 	</div></div>
 	<div class="Contain"><div>
 		<nav>
