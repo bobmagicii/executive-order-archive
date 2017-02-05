@@ -43,6 +43,20 @@ DataSource {
 		return $this->FromCache;
 	}
 
+	////////
+	////////
+
+	protected
+	$Cache = TRUE;
+
+	public function
+	SetCache(Bool $State):
+	self {
+
+		$this->Cache = $State;
+		return $this;
+	}
+
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
@@ -121,6 +135,8 @@ DataSource {
 		////////
 
 		$Raw = $this->Fetch_FromRemote($URL);
+
+		if($this->Cache)
 		$this->Cache($Raw);
 
 		return $Raw;

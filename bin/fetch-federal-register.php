@@ -23,7 +23,11 @@ extends Nether\Console\Client {
 			'',
 			'    --skip-archive',
 			'',
-			'        Do not download the documents locally. Just populate the database.',
+			'      Do not download the documents locally. Just populate the database.',
+			'',
+			'    --skip-cache',
+			'',
+			'      Do not cache the raw request locally.',
 			'',
 			'president <who> <options>',
 			'',
@@ -31,9 +35,13 @@ extends Nether\Console\Client {
 			'',
 			'    clinton, bushjr, obama, trump',
 			'',
-			'      --skip-archive',
+			'    --skip-archive',
 			'',
 			'      Do not download the documents locally. Just populate the database.',
+			'',
+			'    --skip-cache',
+			'',
+			'      Do not cache the raw request locally.',
 			''
 		);
 
@@ -88,7 +96,7 @@ extends Nether\Console\Client {
 
 		////////
 
-		if($Source->FromCache())
+		if(!$this->GetOption('skip-cache') && $Source->FromCache())
 		$this::Message('Data loaded from cache.');
 
 		else
@@ -118,7 +126,7 @@ extends Nether\Console\Client {
 
 		////////
 
-		if($Source->FromCache())
+		if(!$this->GetOption('skip-cache') && $Source->FromCache())
 		$this::Message('Data loaded from cache.');
 
 		else
@@ -133,7 +141,27 @@ extends Nether\Console\Client {
 			$Document->Archive($Source->GetArchiveDir());
 		}
 
+		$this->UpdateTimeFile();
 		return 0;
+	}
+
+	private function
+	UpdateTimeFile():
+	Void {
+
+		$Filename = Nether\Option::Get('app-fetch-timefile');
+		$Dirname = dirname($Filename);
+
+		if(!file_exists($Dirname))
+		@mkdir($Dirname,0777,TRUE);
+
+		if(!is_dir($Dirname)) {
+			$this::Message("Unable to update time file {$Filename}");
+			return;
+		}
+
+		file_put_contents($Filename,time());
+		return;
 	}
 
 };
