@@ -1,11 +1,19 @@
 <?php
 
 Nether\Option::Set([
+	// framework configuration.
 	'app-name'        => 'Presidential Order Archive',
 	'app-short-desc'  => 'A list and some stats about presidential orders.',
 	'app-long-desc'   => 'A list and some stats about presidential orders.',
 	'nether-web-root' => WebRoot,
-	'nether-web-path' => '/'
+	'nether-web-path' => '/',
+
+	// application options.
+	'app-fetch-timefile' => sprintf(
+		'%s%sfetch-time.txt',
+		CacheRoot,
+		DIRECTORY_SEPARATOR
+	)
 ]);
 
 ////////////////////////////////////////////////////////////////////////////////
