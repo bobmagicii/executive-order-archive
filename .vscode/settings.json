@@ -1,0 +1,12 @@
+{
+	"search.exclude": {
+		"**/archive": true,
+		"**/cache": true
+	},
+	"files.watcherExclude": {
+		"**/archive": true,
+		"**/cache": true
+	},
+	"git.enabled": false,
+	"git.autofetch": false
+}
