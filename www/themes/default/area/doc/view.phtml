@@ -1,17 +1,16 @@
 <?php
 
 $Document = $surface->Get('App.Document');
+$PDF = $Document->GetArchivePath();
 
 ?>
 
 <div class="Contain Promo AmericaFuckYeah"><div>
-	<h2><?php echo htmlentities($Document->GetTitle()) ?></h2>
-	<h3>
+	<h2 class="MarginLineNone"><?php echo htmlentities($Document->GetTitle()) ?></h2>
+	<h3 class="MarginLineNormal">
 		Signed by <a href="#" style="FontWeightBold"><?php echo htmlentities($Document->GetSignedName()) ?></a>
 		on <a href="#" style="FontWeightBold"><?php echo htmlentities($Document->GetDateSigned()) ?></a>
 	</h3>
-</div></div>
-<div class="Contain"><div>
 	<table class="WidthFull">
 		<thead>
 			<tr>
@@ -29,18 +28,26 @@ $Document = $surface->Get('App.Document');
 		</tbody>
 	</table>
 </div></div>
-<div class="Contain"><div>
-	<legend>Source Documents:</legend>
+
+<div class="Contain">
+	<div>
+	<legend>Source Documents</legend>
+	<hr />
 	<ul>
 <?php foreach($Document->GetURLS() as $Label => $URL): ?>
 		<li><a href="<?php echo $URL ?>" target="_blank"><?php echo $Label ?> (<?php echo App\Site\Filters::DomainFromURL($URL) ?>)</a></li>
 <?php endforeach; ?>
 	</ul>
-</div></div>
-<div class="Contain"><div>
-	<p>@TODO</p>
-	<p>find a way to get summary text. maybe full text. maybe directly
-	embed the pdf from my local archive?</p>
 
-	<!-- <object data="url"></object> -->
+	</div>
+	<div>
+
+<?php if($PDF): ?>
+	<legend>Archived Document</legend>
+	<hr />
+	<p>Below is the PDF of this document which has been archived locally on
+	this server.</p>
+	<object class="ViewPDF" data="/pdf/<?php echo $Document->GetDocumentKey() ?>"></object>
+<?php endif; ?>
+
 </div></div>

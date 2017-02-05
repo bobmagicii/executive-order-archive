@@ -132,7 +132,7 @@ nav ul li a:visited {
 
 #Main
 > .Contain:nth-child(2n+1) {
-	background-color: #111;
+	background-color: #1a1a1a;
 }
 
 #Main
@@ -188,6 +188,11 @@ td.Title div {
 .DocumentTable
 .DatePublished {
 	text-align: center;
+}
+
+.ViewPDF {
+	height: 500px;
+	width: 100%;
 }
 
 /*// promo/chart area //////////////////////////////////////////////////////////

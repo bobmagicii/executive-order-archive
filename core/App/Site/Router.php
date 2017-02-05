@@ -15,6 +15,7 @@ extends Nether\Avenue\Router {
 		->AddRoute('{@}//index','Routes\Home::Index')
 		->AddRoute('{@}//about','Routes\About::Index')
 		->AddRoute('{@}//doc/($)','Routes\Document::Index')
+		->AddRoute('{@}//pdf/($)','Routes\Document::ArchivePassThru')
 		->AddRoute('{@}//api','Routes\Api::Index');
 
 		$this

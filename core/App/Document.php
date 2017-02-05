@@ -250,7 +250,6 @@ represents an executive document in our database.
 			if(!$URL) {
 				// a lot of clinton's documents seem to be missing.
 				// some of them are attributed wrong too by the api.
-				// probably have to skip clinton for now.
 				continue;
 			}
 
@@ -258,7 +257,6 @@ represents an executive document in our database.
 				'/^(.+) ([a-z0-9]{1,4})$/i','$2',
 				$Label
 			)));
-
 
 			// if you are here debugging this exception then chanced are
 			// you probably made the source class bad. the url keys should
@@ -299,6 +297,35 @@ represents an executive document in our database.
 		}
 
 		return $this;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public function
+	GetArchivePath():
+	?String {
+	/*//
+	@date 2017-02-04
+	get the file name for the local archived pdf of this document. if the
+	file does not exist then it will return null.
+	//*/
+
+		$Filename = sprintf(
+			'%s%s%s%s%s%s%s.pdf',
+			ArchiveRoot,
+			DIRECTORY_SEPARATOR,
+			'FederalRegister',
+			DIRECTORY_SEPARATOR,
+			$this->GetSignedBy(),
+			DIRECTORY_SEPARATOR,
+			$this->GetDocumentID()
+		);
+
+		if(!file_exists($Filename))
+		return NULL;
+
+		return $Filename;
 	}
 
 	////////////////////////////////////////////////////////////////

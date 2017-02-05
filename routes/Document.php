@@ -22,8 +22,34 @@ extends App\Site\RoutePublicWeb {
 			App\Site\Filters::DocumentID($DocumentID)
 		);
 
+		if(!$Document) {
+			$this->Surface->Area('error/not-found');
+			return;
+		}
+
 		$this->Surface->Set('App.Document',$Document);
 		$this->Surface->Area('doc/view');
+		return;
+	}
+
+	public function
+	ArchivePassThru($DocumentID):
+	Void {
+
+		$Document = App\Document::GetByDocumentID(
+			App\Site\Filters::DocumentID($DocumentID)
+		);
+
+		if(!$Document || !$Document->GetArchivePath()) {
+			$this->Surface->Area('error/not-found');
+			return;
+		}
+
+		$this->Surface->Stop(TRUE);
+
+		header('Content-type: application/pdf');
+		readfile($Document->GetArchivePath());
+
 		return;
 	}
 
