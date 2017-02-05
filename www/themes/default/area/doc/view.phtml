@@ -37,6 +37,7 @@ $PDF = $Document->GetArchivePath();
 <?php foreach($Document->GetURLS() as $Label => $URL): ?>
 		<li><a href="<?php echo $URL ?>" target="_blank"><?php echo $Label ?> (<?php echo App\Site\Filters::DomainFromURL($URL) ?>)</a></li>
 <?php endforeach; ?>
+		<li><a href="/pdf/<?php echo $Document->GetDocumentKey() ?>" target="_blank">Link to Local Archived Copy</a></li>
 	</ul>
 
 	</div>
