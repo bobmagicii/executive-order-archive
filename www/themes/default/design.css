@@ -85,6 +85,21 @@ legend {
 .WidthHalf.WidthPadded:nth-child(2n+1) { padding-right: 16px; }
 .WidthHalf.WidthPadded:nth-child(2n) { padding-left: 16px; }
 
+/*// chartistoverrides /////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////*/
+
+.chartist-tooltip {
+	border: 2px solid #fff;
+	border-radius: 4px;
+	box-shadow: 0px 0px 10px #000;
+	background: rgba(0,0,0,0.85);
+	color: #fff;
+}
+
+.chartist-tooltip:before {
+	border-top-color: #fff;
+}
+
 /*// primary page structures ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////*/
 

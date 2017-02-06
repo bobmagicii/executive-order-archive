@@ -13,8 +13,9 @@ $PieSeriesSum = 0;
 
 foreach(App\Term::$List as $Label => $TermInfo) {
 	$LineSeriesData[] = [
-		'value' => array_values($TermSummary[$Label]),
-		'className' => "ct-series dataset-{$TermInfo['SignedBy']}-{$TermInfo['Term']}"
+		'value'     => array_values($TermSummary[$Label]),
+		'className' => "ct-series dataset-{$TermInfo['SignedBy']}-{$TermInfo['Term']}",
+		'meta'      => $Label
 	];
 }
 
@@ -71,6 +72,12 @@ function RenderLineChart() {
 	};
 
 	var Options = {
+		plugins: [
+			Chartist.plugins.tooltip({
+				'anchorToPoint': true,
+				'appendToBody': true
+			})
+		],
 		showArea: false,
 		showLine: true,
 		showPoint: true,
