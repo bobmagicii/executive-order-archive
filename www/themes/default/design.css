@@ -145,6 +145,7 @@ nav ul li a:visited {
 
 .DocumentTable {
 	border-collapse: collapse;
+	margin-bottom: 32px;
 }
 
 .DocumentTable
@@ -240,5 +241,53 @@ ul li a {
 //////////////////////////////////////////////////////////////////////////////*/
 
 .Element-Pager {
+	font-size: 0em;
+	margin-bottom: 32px;
 	text-align: center;
+}
+
+.Element-Pager
+.Info {
+	background: #333;
+	display: inline-block;
+	border: 1px solid #666;
+	border-radius: 0px;
+	font-size: 16px;
+	padding: 10px 10px;
+}
+
+.Element-Pager
+.Info:first-child {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.Element-Pager
+.Info:last-child {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.Element-Pager
+.Next {
+	background: #202020;
+	border: 1px solid #666;
+	border-left: 0px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	display: inline-block;
+	font-size: 16px;
+	padding: 10px 10px;
+}
+
+.Element-Pager
+.Prev {
+	background: #202020;
+	border: 1px solid #666;
+	border-right: 0px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	display: inline-block;
+	font-size: 16px;
+	padding: 10px 10px;
 }
