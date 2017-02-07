@@ -28,6 +28,11 @@
 			color: <?php echo $TermInfo['LineColour'] ?>;
 			border-color: <?php echo $TermInfo['LineColour'] ?>;
 		}
+		li.dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?>.ChartFocus,
+		li.dataset-<?php echo "{$TermInfo['SignedBy']}-{$TermInfo['Term']}" ?> a.ChartFocus {
+			background: <?php echo $TermInfo['LineColour'] ?>;
+			color: #000;
+		}
 <?php endforeach; ?>
 	</style>
 
