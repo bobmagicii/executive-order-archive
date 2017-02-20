@@ -319,7 +319,7 @@ represents an executive document in our database.
 			DIRECTORY_SEPARATOR,
 			$this->GetSignedBy(),
 			DIRECTORY_SEPARATOR,
-			$this->GetDocumentID()
+			strtolower($this->GetDocumentID())
 		);
 
 		if(!file_exists($Filename))
